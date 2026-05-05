@@ -798,14 +798,14 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       <div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;text-align:center">
         <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--danger);margin-bottom:10px;opacity:.8">⚠ While you've been paying minimums...</div>
         <div style="font-family:'DM Sans',sans-serif;font-size:22px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px">Your bank will collect <span style="color:var(--danger)" id="painInterest">thousands</span> in interest.</div>
-        <div style="font-size:15px;color:var(--text2);font-weight:500">That's what happens if nothing changes.</div>
+        <div style="font-size:15px;color:var(--text2);font-weight:500">This is what happens if nothing changes.</div>
       </div>
     </div>
 
     <!-- ② CONTRAST SECTION — the "oh shit" moment -->
     <div id="contrastSection" style="display:none;margin-top:20px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div style="background:var(--danger-dim);border:1px solid var(--danger-border);border-radius:12px;padding:14px 16px;opacity:0.85">
+        <div style="background:var(--danger-dim);border:1px solid var(--danger-border);border-radius:12px;padding:14px 16px;opacity:0.78;filter:grayscale(0.1)">
           <div style="font-size:10px;font-weight:700;color:var(--danger);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">🏦 If nothing changes</div>
           <div style="margin-bottom:8px">
             <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Debt-free</div>
@@ -816,19 +816,25 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
             <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--danger)" id="contBankInt">—</div>
           </div>
         </div>
-        <div style="background:rgba(200,240,102,0.13);border:2px solid var(--accent);border-radius:12px;padding:16px;position:relative;box-shadow:0 0 20px rgba(200,240,102,0.12)">
+        <div style="background:rgba(200,240,102,0.11);border:2px solid var(--accent);border-radius:12px;padding:14px 16px;position:relative;box-shadow:0 0 28px rgba(200,240,102,0.2),0 0 0 1px rgba(200,240,102,0.15)">
           <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#0a0a0a;font-size:9px;font-weight:800;padding:2px 10px;border-radius:10px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">✓ Better plan</div>
           <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">⚡ With ClearPath</div>
           <div style="margin-bottom:10px">
             <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Debt-free</div>
-            <div style="font-size:18px;font-weight:800;font-family:'DM Mono',monospace;color:var(--accent);letter-spacing:-0.02em" id="contOurDate">—</div>
+            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contOurDate">—</div>
           </div>
           <div>
             <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">You save</div>
-            <div style="font-size:18px;font-weight:800;font-family:'DM Mono',monospace;color:var(--accent);letter-spacing:-0.02em" id="contSaved">—</div>
+            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contSaved">—</div>
+            <div style="font-size:11px;color:var(--accent);opacity:0.7;margin-top:4px;font-weight:500">That's your money — not theirs.</div>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Future identity line -->
+    <div id="futureIdentity" style="display:none;text-align:center;padding:18px 0 4px">
+      <div style="font-size:14px;color:var(--text2);font-style:italic;line-height:1.6">You're closer than you think to being debt-free.</div>
     </div>
 
     <!-- ③ PAYWALL — blurred report + single CTA -->
@@ -853,14 +859,14 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
       <div class="blur-overlay">
         <div style="font-size:26px;margin-bottom:8px">🔒</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3">Unlock your fastest path out of debt</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3">You're one step away from saving <span id="paywallSaved" style="color:var(--accent)">thousands</span></div>
         <div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6">See your exact month-by-month payoff plan, negotiation scripts, and every tool you need to get there faster.</div>
         <div class="cp-price-block" style="max-width:300px;width:100%;margin:0 auto 12px">
           <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
           <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
         </div>
         <div class="cp-fine" style="margin-bottom:10px;color:var(--text2);font-size:12px;font-weight:500">No subscriptions. Just a smarter payoff plan.</div>
-        <a href="https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00" class="upgrade-btn" style="font-size:15px;padding:14px 16px;max-width:300px;margin:0 auto">Unlock my fastest payoff plan →</a>
+        <a href="https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00" class="upgrade-btn" id="paywallBtn" style="font-size:15px;padding:14px 16px;max-width:300px;margin:0 auto">Save <span id="paywallBtnAmt">thousands</span> — show me how →</a>
         <div class="cp-fine" style="margin-top:10px;color:var(--text2);font-size:11px">🔒 Secure checkout &nbsp;·&nbsp; One-time $47 &nbsp;·&nbsp; Instant access</div>
       </div>
     </div>
@@ -1234,6 +1240,10 @@ function calculate(){
     e=document.getElementById('contBankInt');if(e)e.textContent=fmtM(_bkSim.totalInterest);
     e=document.getElementById('contOurDate');if(e)e.textContent=fmtDateLong(_ourSim.months);
     e=document.getElementById('contSaved');if(e)e.textContent=fmtM(_sv)+' in interest';
+    // Personalize paywall headline + CTA + future identity
+    var _ps=document.getElementById('paywallSaved');if(_ps)_ps.textContent=fmtM(_sv);
+    var _pb=document.getElementById('paywallBtnAmt');if(_pb)_pb.textContent=fmtM(_sv);
+    var _fi=document.getElementById('futureIdentity');if(_fi)_fi.style.display='block';
   }
   // ③ Blurred paywall
   var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
