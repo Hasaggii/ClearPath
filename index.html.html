@@ -805,7 +805,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <!-- ② CONTRAST SECTION — the "oh shit" moment -->
     <div id="contrastSection" style="display:none;margin-top:20px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div style="background:var(--danger-dim);border:1px solid var(--danger-border);border-radius:12px;padding:14px 16px">
+        <div style="background:var(--danger-dim);border:1px solid var(--danger-border);border-radius:12px;padding:14px 16px;opacity:0.85">
           <div style="font-size:10px;font-weight:700;color:var(--danger);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">🏦 If nothing changes</div>
           <div style="margin-bottom:8px">
             <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Debt-free</div>
@@ -816,15 +816,16 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
             <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--danger)" id="contBankInt">—</div>
           </div>
         </div>
-        <div style="background:rgba(200,240,102,0.07);border:1px solid var(--accent-border);border-radius:12px;padding:14px 16px">
-          <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">⚡ With ClearPath</div>
-          <div style="margin-bottom:8px">
-            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Debt-free</div>
-            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contOurDate">—</div>
+        <div style="background:rgba(200,240,102,0.13);border:2px solid var(--accent);border-radius:12px;padding:16px;position:relative;box-shadow:0 0 20px rgba(200,240,102,0.12)">
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#0a0a0a;font-size:9px;font-weight:800;padding:2px 10px;border-radius:10px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">✓ Better plan</div>
+          <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">⚡ With ClearPath</div>
+          <div style="margin-bottom:10px">
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Debt-free</div>
+            <div style="font-size:18px;font-weight:800;font-family:'DM Mono',monospace;color:var(--accent);letter-spacing:-0.02em" id="contOurDate">—</div>
           </div>
           <div>
-            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">You save</div>
-            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contSaved">—</div>
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">You save</div>
+            <div style="font-size:18px;font-weight:800;font-family:'DM Mono',monospace;color:var(--accent);letter-spacing:-0.02em" id="contSaved">—</div>
           </div>
         </div>
       </div>
@@ -835,7 +836,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       <div class="blur-preview-inner">
         <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Your savings report</div>
         <div style="font-size:44px;font-weight:800;color:#c8f066;font-family:'DM Mono',monospace;letter-spacing:-0.03em;line-height:1;margin-bottom:4px" id="blurSaved">$00,000</div>
-        <div style="font-size:13px;color:#999;margin-bottom:16px">saved in interest vs minimum payments</div>
+        <div style="font-size:13px;color:#999;margin-bottom:4px">saved in interest vs minimum payments</div>
+        <div style="font-size:13px;color:#c8f066;font-weight:600;margin-bottom:16px">That's years of your life back.</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:320px;margin:0 auto">
           <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center">
             <div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Bank plan</div>
@@ -851,14 +853,15 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
       <div class="blur-overlay">
         <div style="font-size:26px;margin-bottom:8px">🔒</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3">Your full savings report is ready</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3">Unlock your fastest path out of debt</div>
         <div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6">See your exact month-by-month payoff plan, negotiation scripts, and every tool you need to get there faster.</div>
         <div class="cp-price-block" style="max-width:300px;width:100%;margin:0 auto 12px">
           <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
-          <div class="cp-price-right"><span class="cp-timer-label">Today only · expires in</span><span class="cp-timer" id="blur-timer">--:--:--</span></div>
+          <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
         </div>
-        <a href="https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00" class="upgrade-btn" style="font-size:15px;padding:14px 16px;max-width:300px;margin:0 auto">Unlock my fastest debt-free plan →</a>
-        <div class="cp-fine" style="margin-top:10px;color:var(--text2);font-size:11px">🔒 Secure checkout &nbsp;·&nbsp; One-time $47 &nbsp;·&nbsp; No subscription ever &nbsp;·&nbsp; Instant access</div>
+        <div class="cp-fine" style="margin-bottom:10px;color:var(--text2);font-size:12px;font-weight:500">No subscriptions. Just a smarter payoff plan.</div>
+        <a href="https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00" class="upgrade-btn" style="font-size:15px;padding:14px 16px;max-width:300px;margin:0 auto">Unlock my fastest payoff plan →</a>
+        <div class="cp-fine" style="margin-top:10px;color:var(--text2);font-size:11px">🔒 Secure checkout &nbsp;·&nbsp; One-time $47 &nbsp;·&nbsp; Instant access</div>
       </div>
     </div>
     <!-- Reset -->
@@ -881,7 +884,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
       <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px;width:100%">
         <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
-        <div class="cp-price-right"><span class="cp-timer-label">Price goes up in</span><span class="cp-timer cp-wall-timer">--:--:--</span></div>
+        <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
       </div>
       <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Unlock my fastest debt-free plan →</button>
       <div class="cp-fine" style="color:var(--text2)">🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription ever</div>
@@ -901,7 +904,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
       <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px;width:100%">
         <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
-        <div class="cp-price-right"><span class="cp-timer-label">Price goes up in</span><span class="cp-timer cp-wall-timer">--:--:--</span></div>
+        <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
       </div>
       <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Unlock my fastest debt-free plan →</button>
       <div class="cp-fine" style="color:var(--text2)">🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription ever</div>
@@ -921,7 +924,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
       <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px;width:100%">
         <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
-        <div class="cp-price-right"><span class="cp-timer-label">Price goes up in</span><span class="cp-timer cp-wall-timer">--:--:--</span></div>
+        <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
       </div>
       <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Unlock my fastest debt-free plan →</button>
       <div class="cp-fine" style="color:var(--text2)">🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription ever</div>
@@ -941,7 +944,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
       <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px;width:100%">
         <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
-        <div class="cp-price-right"><span class="cp-timer-label">Price goes up in</span><span class="cp-timer cp-wall-timer">--:--:--</span></div>
+        <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
       </div>
       <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Unlock my fastest debt-free plan →</button>
       <div class="cp-fine" style="color:var(--text2)">🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription ever</div>
@@ -1335,6 +1338,7 @@ function executeReset(){
   const recRes=document.getElementById('recResults');if(recRes){recRes.style.display='none';recRes.innerHTML='';}
   const recPh=document.getElementById('recPlaceholder');if(recPh)recPh.style.display='none';
   const recHook=document.getElementById('recHook');if(recHook)recHook.style.display='none';
+  ['painSection','contrastSection','blurPreview','cpFreeBanner'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
   ['income','expenses','bills','subscriptions'].forEach(renderBudCatRows);
   renderTxnList();updateBudSummary();
   updateJourney();setStrat('avalanche');
@@ -2089,8 +2093,7 @@ window.addEventListener('beforeunload',()=>save());
         <span class="cp-price-badge">51% OFF</span>
       </div>
       <div class="cp-price-right">
-        <span class="cp-timer-label">Today only · expires in</span>
-        <span class="cp-timer" id="mcd-timer">--:--:--</span>
+        <span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span>
       </div>
     </div>
     <button class="upgrade-btn" onclick="window.location.href='https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00'">Unlock my fastest debt-free plan →</button>
