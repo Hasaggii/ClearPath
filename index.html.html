@@ -14,6 +14,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><path d='M20 75 Q35 30 60 25 L75 20' stroke='%23c8f066' stroke-width='12' fill='none' stroke-linecap='round'/><path d='M38 75 Q50 50 70 42' stroke='%23c8f066' stroke-width='8' fill='none' stroke-linecap='round' opacity='0.5'/></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -34,7 +35,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sa
 .shell{display:flex;flex-direction:row;height:100%;width:100%;overflow:hidden}
 
 /* ── Sidebar ── */
-.topbar{flex-shrink:0;width:240px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%;z-index:100}
+.topbar{flex-shrink:0;width:200px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%;z-index:100}
 .sidebar-top{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center}
 .brand-logo-wrap{background:#fff;border-radius:8px;padding:6px 10px;display:inline-flex;align-items:center}
 .brand-logo{height:26px;width:auto;display:block}
@@ -47,7 +48,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sa
 
 /* ── Side Nav ── */
 .bottom-nav{display:flex;flex-direction:column;gap:2px;padding:12px 10px;flex:1;overflow-y:auto}
-.bnav-btn{display:flex;flex-direction:row;align-items:center;gap:12px;padding:11px 14px;border:none;border-radius:10px;background:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;width:100%;position:relative;text-align:left}
+.bnav-btn{display:flex;flex-direction:row;align-items:center;gap:10px;padding:10px 12px;border:none;border-radius:10px;background:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;width:100%;position:relative;text-align:left}
 .bnav-btn:hover{background:var(--bg3);color:var(--text)}
 .bnav-btn.active{background:var(--accent-dim);color:var(--accent)}
 .bnav-icon{font-size:18px;line-height:1;flex-shrink:0;width:24px;text-align:center}
@@ -56,14 +57,14 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sa
 .bnav-pip.show{display:block}
 
 /* ── Content ── */
-.content{flex:1;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;display:flex;flex-direction:column;align-items:center}
-.tab-pane{display:none;padding:32px 40px 60px;animation:fadeIn .2s ease;max-width:720px;width:100%}
+.content{flex:1;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.tab-pane{display:none;padding:24px 24px 48px;animation:fadeIn .2s ease;max-width:700px}
 .tab-pane.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── Page header ── */
 .ph{margin-bottom:20px}
-.ph h1{font-family:'Syne',sans-serif;font-size:30px;font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:var(--text)}
+.ph h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:var(--text)}
 .ph p{font-size:14px;color:var(--text2);margin-top:6px;line-height:1.6}
 
 /* ── Cards ── */
@@ -464,8 +465,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 
 /* ── Mobile ── */
 @media (max-width:640px){
-  .upgrade-overlay{padding-top:40px;align-items:flex-start}
-  .upgrade-sheet{border-radius:20px 20px 0 0;flex-shrink:0}
   html{height:100%;height:100dvh;overflow:hidden}
   body{overflow:hidden;height:100%;height:100dvh;font-size:14px}
   .shell{flex-direction:column;height:100%;height:100dvh;overflow:hidden}
@@ -552,11 +551,13 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   body{background:#fff;color:#000;overflow:auto}
 }
 
-/* ── Free version ── */
-.upgrade-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:flex-end;justify-content:center;z-index:9999;backdrop-filter:blur(6px);overflow-y:auto;padding-top:60px}
-.upgrade-sheet{background:var(--bg2);border:1px solid var(--border2);border-radius:22px 22px 0 0;padding:12px 24px 40px;width:100%;max-width:480px;animation:sheetUp .3s cubic-bezier(.22,.61,.36,1);position:relative;margin-top:auto}
+/* ── Free version styles ── */
+.upgrade-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:flex-end;justify-content:center;z-index:9999;backdrop-filter:blur(6px)}
+.upgrade-sheet{background:var(--bg2);border:1px solid var(--border2);border-radius:22px 22px 0 0;padding:12px 24px 40px;width:100%;max-width:480px;position:relative;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:sheetUp .3s cubic-bezier(.22,.61,.36,1)}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .upgrade-handle{width:40px;height:4px;border-radius:2px;background:var(--border2);margin:0 auto 18px}
+.upgrade-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;transition:all .15s}
+.upgrade-close:hover{background:var(--bg4);color:var(--text)}
 .upgrade-sheet-title{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:var(--text);text-align:center;line-height:1.3;margin-bottom:10px}
 .upgrade-sheet-sub{font-size:14px;color:var(--text2);text-align:center;line-height:1.7;margin-bottom:16px}
 .upgrade-sheet-features{background:var(--bg3);border-radius:14px;padding:4px 16px 0;margin-bottom:18px}
@@ -565,27 +566,45 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .upgrade-feat-icon{font-size:16px;flex-shrink:0;line-height:1.4}
 .upgrade-btn{display:block;width:100%;background:var(--accent);color:#0a0a0a;font-family:'DM Sans',sans-serif;font-weight:800;font-size:16px;padding:16px 12px;border-radius:14px;text-align:center;border:none;cursor:pointer;line-height:1.3;-webkit-appearance:none;text-decoration:none}
 .upgrade-btn:active{opacity:.88}
-.upgrade-dismiss{display:block;width:100%;background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:13px;padding:12px;margin-top:2px;cursor:pointer;-webkit-appearance:none}
-/* ── Balanced price block ── */
-.cp-price-block{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;margin-top:12px;gap:8px}
+.cp-price-block{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;gap:8px}
 .cp-price-left{display:flex;align-items:baseline;gap:8px}
 .cp-price-was{font-size:13px;color:var(--text3);text-decoration:line-through;font-family:'DM Mono',monospace}
 .cp-price-now{font-size:20px;font-weight:800;color:var(--accent);font-family:'DM Mono',monospace;letter-spacing:-0.02em;line-height:1}
-.cp-price-badge{font-size:10px;font-weight:700;background:rgba(255,82,82,0.15);color:var(--danger);border:1px solid rgba(255,82,82,0.25);border-radius:5px;padding:2px 6px;letter-spacing:.04em;white-space:nowrap}
+.cp-price-badge{font-size:10px;font-weight:700;background:rgba(255,82,82,0.15);color:var(--danger);border:1px solid rgba(255,82,82,0.25);border-radius:5px;padding:2px 6px;white-space:nowrap}
 .cp-price-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
 .cp-timer-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;font-weight:600;white-space:nowrap}
-.cp-timer{font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:var(--text2);letter-spacing:.02em;white-space:nowrap}
+.cp-timer{font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:var(--text2);white-space:nowrap}
 .cp-fine{font-size:11px;color:var(--text3);text-align:center;margin-top:8px;line-height:1.6}
-/* Post-calculate banner */
-.cp-free-banner{background:linear-gradient(135deg,rgba(200,240,102,.09),rgba(200,240,102,.02));border:1px solid var(--accent-border);border-radius:16px;padding:22px 20px;text-align:center;margin-top:20px}
-.cp-free-banner-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.cp-free-banner-title{font-family:'DM Sans',sans-serif;font-size:19px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px}
-.cp-free-banner-sub{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px}
-
-
-/* ── Close button ── */
-.upgrade-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;-webkit-appearance:none;transition:all .15s;flex-shrink:0}
-.upgrade-close:hover{background:var(--bg4);color:var(--text)}
+.cp-free-banner{background:linear-gradient(135deg,rgba(200,240,102,.09),rgba(200,240,102,.02));border:1px solid var(--accent-border);border-radius:16px;padding:18px 20px;text-align:center;margin-top:16px}
+.cp-free-banner-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.cp-free-banner-title{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px}
+.blur-preview{position:relative;margin-top:20px;border-radius:14px;overflow:hidden;border:1px solid var(--border2);min-height:340px}
+.blur-preview-inner{filter:blur(6px);pointer-events:none;user-select:none;padding:18px;background:var(--bg2)}
+.blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:20px;padding-left:16px;padding-right:16px;padding-bottom:20px;background:rgba(10,10,10,.7);text-align:center;overflow-y:auto}
+.content{flex:1;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;display:flex;flex-direction:column;align-items:center}
+.tab-pane{display:none;padding:32px 40px 60px;animation:fadeIn .2s ease;max-width:720px;width:100%}
+.topbar{flex-shrink:0;width:240px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%;z-index:100}
+@media(max-width:640px){
+  .upgrade-overlay{align-items:flex-end}
+  .upgrade-sheet{border-radius:20px 20px 0 0;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .tab-pane{padding:14px 14px 32px}
+  html,body{height:100%;height:100dvh;overflow:hidden}
+  .shell{flex-direction:column;height:100dvh;overflow:hidden}
+  .topbar{width:100%;flex-direction:column;border-right:none;border-bottom:1px solid var(--border);flex-shrink:0;height:auto}
+  .sidebar-top{padding:10px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;min-height:50px}
+  .topbar-right{display:none}
+  .bottom-nav{flex-direction:row;padding:0 4px;overflow-x:auto;gap:0;scrollbar-width:none;padding-bottom:env(safe-area-inset-bottom,0px)}
+  .bottom-nav::-webkit-scrollbar{display:none}
+  .bnav-btn{flex-direction:column;gap:1px;padding:7px 4px 6px;min-width:0;flex:1;border-radius:0;justify-content:center;align-items:center;border-top:2px solid transparent}
+  .bnav-btn.active{background:none;border-top-color:var(--accent);color:var(--accent)}
+  .bnav-icon{font-size:19px;line-height:1;width:auto}
+  .bnav-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;margin-top:2px}
+  .content{flex:1;overflow-y:auto;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;display:flex;flex-direction:column;align-items:center}
+  .mgrid{grid-template-columns:1fr 1fr;gap:7px}
+  .vs-wrap{grid-template-columns:1fr;gap:8px}
+  .form-row{grid-template-columns:1fr}
+  .bud-txn-form-row{grid-template-columns:1fr}
+}
 
 </style>
 </head>
@@ -704,7 +723,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
         <div class="strat-card active" id="strat-avalanche" onclick="setStrat('avalanche')">
           <div class="strat-card-header">
             <div class="strat-icon">🏔</div>
-            <div><div class="strat-name">Avalanche</div><div class="strat-tag">Saves the most money</div></div>
+            <div><div class="strat-name">Avalanche</div><div class="strat-tag">Best if you care about saving the most money</div></div>
             <div class="strat-check" id="check-avalanche">✓</div>
           </div>
           <div class="strat-desc">Pay minimums on all debts. Put every extra dollar toward the <strong>highest interest rate</strong> debt first.</div>
@@ -717,7 +736,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
         <div class="strat-card" id="strat-snowball" onclick="setStrat('snowball')">
           <div class="strat-card-header">
             <div class="strat-icon">⛄</div>
-            <div><div class="strat-name">Snowball</div><div class="strat-tag">Builds fastest momentum</div></div>
+            <div><div class="strat-name">Snowball</div><div class="strat-tag">Best if you struggle staying consistent</div></div>
             <div class="strat-check" id="check-snowball" style="opacity:0">✓</div>
           </div>
           <div class="strat-desc">Pay minimums on all debts. Put every extra dollar toward the <strong>smallest balance</strong> debt first.</div>
@@ -774,27 +793,74 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 
     </div><!-- end results -->
 
-
-    <!-- Free upgrade banner (shown after calculate) -->
-    <div class="cp-free-banner" id="cpFreeBanner" style="display:none">
-      <div class="cp-free-banner-eyebrow">⚠ While you've been paying minimums...</div>
-      <div class="cp-free-banner-title">Your bank collected <span style="color:var(--danger)" id="cpBannerInt">thousands</span> in interest. Here's how to stop it.</div>
-      <div class="cp-free-banner-sub">The ones who act on this number get out of debt <strong style="color:var(--text)"><span class="cp-faster-num">years</span> sooner</strong> and keep the money the bank was counting on taking.</div>
-      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px">
-        <div class="cp-price-left">
-          <span class="cp-price-was">$97</span>
-          <span class="cp-price-now">$47</span>
-          <span class="cp-price-badge">51% OFF</span>
-        </div>
-        <div class="cp-price-right">
-          <span class="cp-timer-label">Price goes up in</span>
-          <span class="cp-timer" id="bcd-timer">--:--:--</span>
-        </div>
+    <!-- ① PAIN SECTION — hits before paywall -->
+    <div id="painSection" style="display:none;margin-top:24px">
+      <div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;text-align:center">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--danger);margin-bottom:10px;opacity:.8">⚠ While you've been paying minimums...</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:22px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px">Your bank will collect <span style="color:var(--danger)" id="painInterest">thousands</span> in interest.</div>
+        <div style="font-size:15px;color:var(--text2);font-weight:500">That's what happens if nothing changes.</div>
       </div>
-      <a href="https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00" class="upgrade-btn" style="max-width:340px;margin:0 auto;font-size:15px;padding:15px 12px;display:block">See how to get debt-free 3x faster →</a>
-      <div class="cp-fine">One-time · No subscription · Secured by Stripe</div>
     </div>
 
+    <!-- ② CONTRAST SECTION — the "oh shit" moment -->
+    <div id="contrastSection" style="display:none;margin-top:20px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:var(--danger-dim);border:1px solid var(--danger-border);border-radius:12px;padding:14px 16px">
+          <div style="font-size:10px;font-weight:700;color:var(--danger);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">🏦 If nothing changes</div>
+          <div style="margin-bottom:8px">
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Debt-free</div>
+            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--danger)" id="contBankDate">—</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Total interest</div>
+            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--danger)" id="contBankInt">—</div>
+          </div>
+        </div>
+        <div style="background:rgba(200,240,102,0.07);border:1px solid var(--accent-border);border-radius:12px;padding:14px 16px">
+          <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">⚡ With ClearPath</div>
+          <div style="margin-bottom:8px">
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Debt-free</div>
+            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contOurDate">—</div>
+          </div>
+          <div>
+            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">You save</div>
+            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contSaved">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ PAYWALL — blurred report + single CTA -->
+    <div class="blur-preview" id="blurPreview" style="display:none;margin-top:20px">
+      <div class="blur-preview-inner">
+        <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Your savings report</div>
+        <div style="font-size:44px;font-weight:800;color:#c8f066;font-family:'DM Mono',monospace;letter-spacing:-0.03em;line-height:1;margin-bottom:4px" id="blurSaved">$00,000</div>
+        <div style="font-size:13px;color:#999;margin-bottom:16px">saved in interest vs minimum payments</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:320px;margin:0 auto">
+          <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Bank plan</div>
+            <div style="font-size:15px;font-weight:700;color:#ff5252;font-family:'DM Mono',monospace" id="blurBankDate">—</div>
+            <div style="font-size:11px;color:#555;margin-top:3px" id="blurBankInt">—</div>
+          </div>
+          <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center">
+            <div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">ClearPath</div>
+            <div style="font-size:15px;font-weight:700;color:#c8f066;font-family:'DM Mono',monospace" id="blurOurDate">—</div>
+            <div style="font-size:11px;color:#555;margin-top:3px" id="blurOurInt">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="blur-overlay">
+        <div style="font-size:26px;margin-bottom:8px">🔒</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3">Your full savings report is ready</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6">See your exact month-by-month payoff plan, negotiation scripts, and every tool you need to get there faster.</div>
+        <div class="cp-price-block" style="max-width:300px;width:100%;margin:0 auto 12px">
+          <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
+          <div class="cp-price-right"><span class="cp-timer-label">Today only · expires in</span><span class="cp-timer" id="blur-timer">--:--:--</span></div>
+        </div>
+        <a href="https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00" class="upgrade-btn" style="font-size:15px;padding:14px 16px;max-width:300px;margin:0 auto">Unlock my fastest debt-free plan →</a>
+        <div class="cp-fine" style="margin-top:10px;color:var(--text2);font-size:11px">🔒 Secure checkout &nbsp;·&nbsp; One-time $47 &nbsp;·&nbsp; No subscription ever &nbsp;·&nbsp; Instant access</div>
+      </div>
+    </div>
     <!-- Reset -->
     <div style="margin-top:24px;padding:20px 0 4px;border-top:1px solid var(--border);text-align:center">
       <button class="btn btn-ghost" onclick="confirmReset()" style="font-size:12px;color:var(--text3)">🗑 Reset all data</button>
@@ -806,26 +872,19 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <div style="display:flex;flex-direction:column;align-items:center;padding:28px 20px 40px;text-align:center;min-height:60vh;justify-content:center">
       <div style="font-size:40px;margin-bottom:14px;line-height:1">💸</div>
       <div style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:10px;max-width:290px">You can't fix what you can't see.</div>
-      <div style="font-size:14px;color:var(--text2);line-height:1.75;max-width:290px;margin-bottom:22px">Most people think they have a discipline problem. They have a visibility problem. Once you see where every dollar goes, the fixes become obvious.</div>
-      <div class="upgrade-sheet-features" style="width:100%;max-width:340px;margin-bottom:22px;text-align:left">
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">📊</span>Full income vs spending breakdown — no more guessing</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.75;max-width:290px;margin-bottom:22px">Most people think they have a discipline problem. They have a visibility problem. Once you see where every dollar goes, the fixes are obvious.</div>
+      <div class="upgrade-sheet-features" style="width:100%;max-width:340px;margin-bottom:6px;text-align:left">
+      <div class="upgrade-feat"><span class="upgrade-feat-icon">📊</span>Full income vs spending breakdown</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">🔍</span>See which habits are costing you your debt-free date</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">⚡</span>Find your surplus and apply it straight to your debt</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">📅</span>Log every transaction so nothing slips through</div>
+      <div class="upgrade-feat"><span class="upgrade-feat-icon">📅</span>Log every transaction — no surprises</div>
       </div>
-      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px">
-        <div class="cp-price-left">
-          <span class="cp-price-was">$97</span>
-          <span class="cp-price-now">$47</span>
-          <span class="cp-price-badge">51% OFF</span>
-        </div>
-        <div class="cp-price-right">
-          <span class="cp-timer-label">Price goes up in</span>
-          <span class="cp-timer cp-wall-timer">--:--:--</span>
-        </div>
+      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px;width:100%">
+        <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
+        <div class="cp-price-right"><span class="cp-timer-label">Price goes up in</span><span class="cp-timer cp-wall-timer">--:--:--</span></div>
       </div>
-      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Stop the leak — see where your money goes →</button>
-      <div class="cp-fine">One-time · No subscription · Instant access</div>
+      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Unlock my fastest debt-free plan →</button>
+      <div class="cp-fine" style="color:var(--text2)">🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription ever</div>
     </div>
   </div><!-- end tab-budget -->
 
@@ -833,26 +892,19 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <div style="display:flex;flex-direction:column;align-items:center;padding:28px 20px 40px;text-align:center;min-height:60vh;justify-content:center">
       <div style="font-size:40px;margin-bottom:14px;line-height:1">🏦</div>
       <div style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:10px;max-width:290px">The bank has a plan for your money.</div>
-      <div style="font-size:14px;color:var(--text2);line-height:1.75;max-width:290px;margin-bottom:22px">Their plan: you pay minimums forever while they collect thousands in interest. Your report shows a different plan — one where you win.</div>
-      <div class="upgrade-sheet-features" style="width:100%;max-width:340px;margin-bottom:22px;text-align:left">
+      <div style="font-size:14px;color:var(--text2);line-height:1.75;max-width:290px;margin-bottom:22px">Their plan: you pay minimums forever while they collect thousands. Your report shows a different plan — one where you win.</div>
+      <div class="upgrade-sheet-features" style="width:100%;max-width:340px;margin-bottom:6px;text-align:left">
       <div class="upgrade-feat"><span class="upgrade-feat-icon">💰</span>The exact dollar amount your bank is taking from you</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">📉</span>Bank's plan vs your plan — the gap will make you angry</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">🗓</span>Month-by-month breakdown of every debt going to zero</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">📄</span>Your personalized plan with your name and debt-free date</div>
+      <div class="upgrade-feat"><span class="upgrade-feat-icon">📄</span>Your personalized plan PDF — with your name on it</div>
       </div>
-      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px">
-        <div class="cp-price-left">
-          <span class="cp-price-was">$97</span>
-          <span class="cp-price-now">$47</span>
-          <span class="cp-price-badge">51% OFF</span>
-        </div>
-        <div class="cp-price-right">
-          <span class="cp-timer-label">Price goes up in</span>
-          <span class="cp-timer cp-wall-timer">--:--:--</span>
-        </div>
+      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px;width:100%">
+        <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
+        <div class="cp-price-right"><span class="cp-timer-label">Price goes up in</span><span class="cp-timer cp-wall-timer">--:--:--</span></div>
       </div>
-      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">See how much the bank is taking from me →</button>
-      <div class="cp-fine">One-time · No subscription · Instant access</div>
+      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Unlock my fastest debt-free plan →</button>
+      <div class="cp-fine" style="color:var(--text2)">🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription ever</div>
     </div>
   </div><!-- end tab-recommendation -->
 
@@ -861,25 +913,18 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       <div style="font-size:40px;margin-bottom:14px;line-height:1">📞</div>
       <div style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:10px;max-width:290px">Your bank will never teach you these.</div>
       <div style="font-size:14px;color:var(--text2);line-height:1.75;max-width:290px;margin-bottom:22px">A 5-minute call can cut your interest rate by 3–8%. Most people never make it because they don't know what to say. We wrote every word for you.</div>
-      <div class="upgrade-sheet-features" style="width:100%;max-width:340px;margin-bottom:22px;text-align:left">
+      <div class="upgrade-sheet-features" style="width:100%;max-width:340px;margin-bottom:6px;text-align:left">
       <div class="upgrade-feat"><span class="upgrade-feat-icon">📞</span>Word-for-word scripts to lower your interest rates today</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">🔍</span>8 questions to find $300–500/mo you didn't know you had</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">🔄</span>Balance transfer calc — does it actually save you money?</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">💡</span>Income simulator — see how a side hustle moves your date</div>
       </div>
-      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px">
-        <div class="cp-price-left">
-          <span class="cp-price-was">$97</span>
-          <span class="cp-price-now">$47</span>
-          <span class="cp-price-badge">51% OFF</span>
-        </div>
-        <div class="cp-price-right">
-          <span class="cp-timer-label">Price goes up in</span>
-          <span class="cp-timer cp-wall-timer">--:--:--</span>
-        </div>
+      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px;width:100%">
+        <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
+        <div class="cp-price-right"><span class="cp-timer-label">Price goes up in</span><span class="cp-timer cp-wall-timer">--:--:--</span></div>
       </div>
-      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Give me the tools my bank doesn't want me to have →</button>
-      <div class="cp-fine">One-time · No subscription · Instant access</div>
+      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Unlock my fastest debt-free plan →</button>
+      <div class="cp-fine" style="color:var(--text2)">🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription ever</div>
     </div>
   </div><!-- end tab-tools -->
 
@@ -887,26 +932,19 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     <div style="display:flex;flex-direction:column;align-items:center;padding:28px 20px 40px;text-align:center;min-height:60vh;justify-content:center">
       <div style="font-size:40px;margin-bottom:14px;line-height:1">🏆</div>
       <div style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:10px;max-width:290px">The ones who track it are the ones who beat it.</div>
-      <div style="font-size:14px;color:var(--text2);line-height:1.75;max-width:290px;margin-bottom:22px">Debt doesn't disappear in one big moment. It falls one payment at a time. Every payment you log is proof you're winning — that's what keeps you going.</div>
-      <div class="upgrade-sheet-features" style="width:100%;max-width:340px;margin-bottom:22px;text-align:left">
+      <div style="font-size:14px;color:var(--text2);line-height:1.75;max-width:290px;margin-bottom:22px">Debt doesn't disappear in one big moment. It falls one payment at a time. Every payment you log is proof you're winning.</div>
+      <div class="upgrade-sheet-features" style="width:100%;max-width:340px;margin-bottom:6px;text-align:left">
       <div class="upgrade-feat"><span class="upgrade-feat-icon">⏳</span>Live countdown — months, weeks, days to debt-free</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">🎯</span>Log every payment and watch your balances drop</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">🔥</span>Weekly check-in streak — 60 seconds a week</div>
       <div class="upgrade-feat"><span class="upgrade-feat-icon">🏆</span>Milestones and wins as each debt gets eliminated</div>
       </div>
-      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px">
-        <div class="cp-price-left">
-          <span class="cp-price-was">$97</span>
-          <span class="cp-price-now">$47</span>
-          <span class="cp-price-badge">51% OFF</span>
-        </div>
-        <div class="cp-price-right">
-          <span class="cp-timer-label">Price goes up in</span>
-          <span class="cp-timer cp-wall-timer">--:--:--</span>
-        </div>
+      <div class="cp-price-block" style="max-width:340px;margin:0 auto 12px;width:100%">
+        <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
+        <div class="cp-price-right"><span class="cp-timer-label">Price goes up in</span><span class="cp-timer cp-wall-timer">--:--:--</span></div>
       </div>
-      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Start tracking — watch my debt disappear →</button>
-      <div class="cp-fine">One-time · No subscription · Instant access</div>
+      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;width:100%;font-size:15px;padding:15px 12px">Unlock my fastest debt-free plan →</button>
+      <div class="cp-fine" style="color:var(--text2)">🔒 One-time payment &nbsp;·&nbsp; Instant access &nbsp;·&nbsp; No subscription ever</div>
     </div>
   </div><!-- end tab-milestones -->
 
@@ -914,16 +952,13 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 </main>
 </div><!-- end content wrapper -->
 
-
-</div>
+</div><!-- end shell -->
 <script>
 
 // ── Free version ─────────────────────────────────────────────────────
 function showUpgrade(){var el=document.getElementById('upgradeOverlay');if(el){el.style.display='flex';document.body.style.overflow='hidden';}}
 function closeUpgrade(){var el=document.getElementById('upgradeOverlay');if(el){el.style.display='none';document.body.style.overflow='';}}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeUpgrade();});
-
-// 24hr countdown
 (function(){
   var KEY='cp_end',SECS=86400,now=Math.floor(Date.now()/1000);
   var end=parseInt(localStorage.getItem(KEY)||'0');
@@ -932,14 +967,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeUpgrade
   function tick(){
     var rem=Math.max(0,end-Math.floor(Date.now()/1000));
     var str=pad(Math.floor(rem/3600))+':'+pad(Math.floor((rem%3600)/60))+':'+pad(rem%60);
-    var els=[document.getElementById('bcd-timer'),document.getElementById('mcd-timer')];
-    document.querySelectorAll('.cp-wall-timer').forEach(function(e){els.push(e);});
-    els.forEach(function(e){if(e)e.textContent=str;});
-    if(rem===0){els.forEach(function(e){if(e&&e.parentNode)e.parentNode.innerHTML='<span style="color:var(--danger);font-weight:600;font-size:11px">Price going up soon</span>';});}
+    ['mcd-timer','blur-timer'].forEach(function(id){var e=document.getElementById(id);if(e)e.textContent=str;});
+    document.querySelectorAll('.cp-wall-timer').forEach(function(e){e.textContent=str;});
+    if(rem===0){['mcd-timer','blur-timer'].forEach(function(id){var e=document.getElementById(id);if(e&&e.parentNode)e.parentNode.innerHTML='<span style="color:var(--danger);font-size:11px;font-weight:600">Price going up soon</span>';});}
   }
   tick();setInterval(tick,1000);
 })();
-
 // ══ STATE ════════════════════════════════════════════════════════════
 let debts=[],budgetItems=[],transactions=[],strategy='avalanche';
 let goals=[],wins=[];
@@ -1185,13 +1218,39 @@ function calculate(){
   renderPayoffList(result);
   renderChart(result.history,result.months);
   document.getElementById('results').style.display='block';
-  var _b=document.getElementById('cpFreeBanner');
-  var _bi=document.getElementById('cpBannerInt');
-  var _bk=simulate(debts,0,'avalanche');
-  if(_b){_b.style.display='block';setTimeout(function(){_b.scrollIntoView({behavior:'smooth',block:'nearest'});},300);}
-  if(_bi&&_bk)_bi.textContent=fmtM(_bk.totalInterest);
-  var _ms=_bk&&lastResult?Math.max(0,_bk.months-lastResult.result.months):0;
-  document.querySelectorAll('.cp-faster-num').forEach(function(e){if(_ms>0)e.textContent=fmtYM(_ms);});
+  var _bkSim=simulate(debts,0,'avalanche');
+  var _ourSim=simulate(debts,500,'avalanche');
+  // ① Pain section
+  var _pain=document.getElementById('painSection');if(_pain)_pain.style.display='block';
+  var _pi=document.getElementById('painInterest');if(_pi&&_bkSim)_pi.textContent=fmtM(_bkSim.totalInterest);
+  // ② Contrast section
+  var _cont=document.getElementById('contrastSection');if(_cont)_cont.style.display='block';
+  if(_bkSim&&_ourSim){
+    var _sv=Math.max(0,_bkSim.totalInterest-_ourSim.totalInterest);
+    var e=document.getElementById('contBankDate');if(e)e.textContent=fmtDateLong(_bkSim.months);
+    e=document.getElementById('contBankInt');if(e)e.textContent=fmtM(_bkSim.totalInterest);
+    e=document.getElementById('contOurDate');if(e)e.textContent=fmtDateLong(_ourSim.months);
+    e=document.getElementById('contSaved');if(e)e.textContent=fmtM(_sv)+' in interest';
+  }
+  // ③ Blurred paywall
+  var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
+  if(_bkSim&&_ourSim){
+    var _sv2=Math.max(0,_bkSim.totalInterest-_ourSim.totalInterest);
+    e=document.getElementById('blurSaved');if(e)e.textContent=fmtM(_sv2);
+    e=document.getElementById('blurBankDate');if(e)e.textContent=fmtDateLong(_bkSim.months);
+    e=document.getElementById('blurBankInt');if(e)e.textContent=fmtM(_bkSim.totalInterest)+' interest';
+    e=document.getElementById('blurOurDate');if(e)e.textContent=fmtDateLong(_ourSim.months);
+    e=document.getElementById('blurOurInt');if(e)e.textContent=fmtM(_ourSim.totalInterest)+' interest';
+  }
+  // Extra payment hint
+  var _hint=document.getElementById('extraImpactHint');
+  if(_hint&&lastResult){
+    var _r50=simulate(debts,50,'avalanche');var _r100=simulate(debts,100,'avalanche');
+    var _s50=lastResult.result.months-(_r50?_r50.months:0);var _s100=lastResult.result.months-(_r100?_r100.months:0);
+    if(_s50>0){_hint.textContent='$50/mo extra saves '+fmtYM(Math.max(0,_s50))+' · $100/mo saves '+fmtYM(Math.max(0,_s100));_hint.style.color='var(--accent)';}
+  }
+  // Scroll to pain section smoothly
+  setTimeout(function(){var p=document.getElementById('painSection');if(p)p.scrollIntoView({behavior:'smooth',block:'nearest'});},400);
   milestones[0].done=true;
   scheduleSave();
   updateJourney();
@@ -1681,36 +1740,6 @@ function generatePDF(){
   <div class="motivation"><p>"Every dollar you send to debt is a dollar buying back your freedom."</p><div class="sig">— ClearPath</div></div>
   <div class="footer"><p>Generated by <strong>ClearPath</strong> — your path to financial freedom.</p></div>
   
-<div class="upgrade-overlay" id="upgradeOverlay" style="display:none" onclick="if(event.target===this)closeUpgrade()">
-  <div class="upgrade-sheet">
-    <div class="upgrade-handle"></div>
-    <button class="upgrade-close" onclick="closeUpgrade()">✕</button>
-    <div style="font-size:32px;text-align:center;margin-bottom:10px;line-height:1">🔒</div>
-    <div class="upgrade-sheet-title">See how to get debt-free 3x faster</div>
-    <div class="upgrade-sheet-sub">Every month you wait, the bank takes more. The full plan shows your exact escape route and puts the tools in your hands.</div>
-    <div class="upgrade-sheet-features">
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">🔥</span>See exactly how much your bank is taking from you in interest</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">⚡</span>Your fastest path out — month by month, debt by debt</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">📞</span>Scripts to call and lower your interest rates today</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">🔍</span>Find $300–500/mo you didn't know you were wasting</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">📄</span>Your plan, your name, your debt-free date. Printed. Owned.</div>
-    </div>
-    <div class="cp-price-block" style="margin-bottom:12px">
-      <div class="cp-price-left">
-        <span class="cp-price-was">$97</span>
-        <span class="cp-price-now">$47</span>
-        <span class="cp-price-badge">51% OFF</span>
-      </div>
-      <div class="cp-price-right">
-        <span class="cp-timer-label">Price goes up in</span>
-        <span class="cp-timer" id="mcd-timer">--:--:--</span>
-      </div>
-    </div>
-    <button class="upgrade-btn" onclick="window.location.href='https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00'">See how to get debt-free 3x faster →</button>
-    <div class="cp-fine">One-time payment · No subscription · Instant access · Secured by Stripe</div>
-  </div>
-</div>
-
 </body></html>`;
   const blob=new Blob([html],{type:'text/html'});
   const url=URL.createObjectURL(blob);
@@ -2037,12 +2066,14 @@ window.addEventListener('beforeunload',()=>save());
 </script>
 
 
+
+<!-- Upgrade Modal -->
 <div class="upgrade-overlay" id="upgradeOverlay" style="display:none" onclick="if(event.target===this)closeUpgrade()">
   <div class="upgrade-sheet">
     <div class="upgrade-handle"></div>
     <button class="upgrade-close" onclick="closeUpgrade()">✕</button>
-    <div style="font-size:32px;text-align:center;margin-bottom:10px;line-height:1">🔒</div>
-    <div class="upgrade-sheet-title">See how to get debt-free 3x faster</div>
+    <div style="font-size:30px;text-align:center;margin-bottom:10px">🔒</div>
+    <div class="upgrade-sheet-title">Unlock my fastest debt-free plan</div>
     <div class="upgrade-sheet-sub">Every month you wait, the bank takes more. The full plan shows your exact escape route and puts the tools in your hands.</div>
     <div class="upgrade-sheet-features">
       <div class="upgrade-feat"><span class="upgrade-feat-icon">🔥</span>See exactly how much your bank is taking from you in interest</div>
@@ -2058,12 +2089,12 @@ window.addEventListener('beforeunload',()=>save());
         <span class="cp-price-badge">51% OFF</span>
       </div>
       <div class="cp-price-right">
-        <span class="cp-timer-label">Price goes up in</span>
+        <span class="cp-timer-label">Today only · expires in</span>
         <span class="cp-timer" id="mcd-timer">--:--:--</span>
       </div>
     </div>
-    <button class="upgrade-btn" onclick="window.location.href='https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00'">See how to get debt-free 3x faster →</button>
-    <div class="cp-fine">One-time payment · No subscription · Instant access · Secured by Stripe</div>
+    <button class="upgrade-btn" onclick="window.location.href='https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00'">Unlock my fastest debt-free plan →</button>
+    <div class="cp-fine" style="color:var(--text2);margin-top:10px">🔒 Secure checkout &nbsp;·&nbsp; One-time payment &nbsp;·&nbsp; No subscription ever &nbsp;·&nbsp; Instant access</div>
   </div>
 </div>
 
