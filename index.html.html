@@ -31,10 +31,10 @@ html{height:100%;overflow:hidden}
 body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;overflow:hidden;display:flex;flex-direction:column}
 
 /* ── Shell ── */
-.shell{display:flex;flex-direction:row;height:100%;width:100%;overflow:hidden}
+.shell{display:flex;flex-direction:row;height:100%;width:100%;overflow:hidden;max-width:1200px;margin:0 auto}
 
 /* ── Sidebar ── */
-.topbar{flex-shrink:0;width:200px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%;z-index:100}
+.topbar{flex-shrink:0;width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%;z-index:100}
 .sidebar-top{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center}
 .brand-logo-wrap{background:#fff;border-radius:8px;padding:6px 10px;display:inline-flex;align-items:center}
 .brand-logo{height:26px;width:auto;display:block}
@@ -47,7 +47,7 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sa
 
 /* ── Side Nav ── */
 .bottom-nav{display:flex;flex-direction:column;gap:2px;padding:12px 10px;flex:1;overflow-y:auto}
-.bnav-btn{display:flex;flex-direction:row;align-items:center;gap:10px;padding:10px 12px;border:none;border-radius:10px;background:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;width:100%;position:relative;text-align:left}
+.bnav-btn{display:flex;flex-direction:row;align-items:center;gap:12px;padding:11px 14px;border:none;border-radius:10px;background:none;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;width:100%;position:relative;text-align:left}
 .bnav-btn:hover{background:var(--bg3);color:var(--text)}
 .bnav-btn.active{background:var(--accent-dim);color:var(--accent)}
 .bnav-icon{font-size:18px;line-height:1;flex-shrink:0;width:24px;text-align:center}
@@ -57,13 +57,13 @@ body{height:100%;background:var(--bg);color:var(--text);font-family:'DM Sans',sa
 
 /* ── Content ── */
 .content{flex:1;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
-.tab-pane{display:none;padding:24px 24px 48px;animation:fadeIn .2s ease;max-width:700px}
+.tab-pane{display:none;padding:32px 40px 60px;animation:fadeIn .2s ease;max-width:760px}
 .tab-pane.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── Page header ── */
 .ph{margin-bottom:20px}
-.ph h1{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:var(--text)}
+.ph h1{font-family:'Syne',sans-serif;font-size:30px;font-weight:700;letter-spacing:-0.03em;line-height:1.1;color:var(--text)}
 .ph p{font-size:14px;color:var(--text2);margin-top:6px;line-height:1.6}
 
 /* ── Cards ── */
@@ -464,6 +464,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 
 /* ── Mobile ── */
 @media (max-width:640px){
+  .upgrade-overlay{padding-top:40px;align-items:flex-start}
+  .upgrade-sheet{border-radius:20px 20px 0 0;flex-shrink:0}
   html{height:100%;height:100dvh;overflow:hidden}
   body{overflow:hidden;height:100%;height:100dvh;font-size:14px}
   .shell{flex-direction:column;height:100%;height:100dvh;overflow:hidden}
@@ -551,8 +553,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 }
 
 /* ── Free version ── */
-.upgrade-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:flex-end;justify-content:center;z-index:9999;backdrop-filter:blur(6px)}
-.upgrade-sheet{background:var(--bg2);border:1px solid var(--border2);border-radius:22px 22px 0 0;padding:12px 24px 40px;width:100%;max-width:480px;animation:sheetUp .3s cubic-bezier(.22,.61,.36,1)}
+.upgrade-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:flex-end;justify-content:center;z-index:9999;backdrop-filter:blur(6px);overflow-y:auto;padding-top:60px}
+.upgrade-sheet{background:var(--bg2);border:1px solid var(--border2);border-radius:22px 22px 0 0;padding:12px 24px 40px;width:100%;max-width:480px;animation:sheetUp .3s cubic-bezier(.22,.61,.36,1);position:relative;margin-top:auto}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .upgrade-handle{width:40px;height:4px;border-radius:2px;background:var(--border2);margin:0 auto 18px}
 .upgrade-sheet-title{font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;color:var(--text);text-align:center;line-height:1.3;margin-bottom:10px}
@@ -580,10 +582,15 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .cp-free-banner-title{font-family:'DM Sans',sans-serif;font-size:19px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px}
 .cp-free-banner-sub{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px}
 
+
+/* ── Close button ── */
+.upgrade-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;-webkit-appearance:none;transition:all .15s;flex-shrink:0}
+.upgrade-close:hover{background:var(--bg4);color:var(--text)}
+
 </style>
 </head>
 <body>
-<div class="shell">
+<div style="width:100%;height:100%;background:var(--bg);display:flex;justify-content:center"><div class="shell">
 
 <!-- Sidebar -->
 <aside class="topbar">
@@ -784,7 +791,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
           <span class="cp-timer" id="bcd-timer">--:--:--</span>
         </div>
       </div>
-      <button onclick="showUpgrade()" class="upgrade-btn" style="max-width:340px;margin:0 auto;font-size:15px;padding:15px 12px">See how to get debt-free 3x faster →</button>
+      <a href="https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00" class="upgrade-btn" style="max-width:340px;margin:0 auto;font-size:15px;padding:15px 12px;display:block">See how to get debt-free 3x faster →</a>
       <div class="cp-fine">One-time · No subscription · Secured by Stripe</div>
     </div>
 
@@ -907,7 +914,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 </main>
 </div><!-- end content wrapper -->
 
-</div><!-- end shell -->
+
+</div></div>
 <script>
 
 // ── Free version ─────────────────────────────────────────────────────
@@ -1676,6 +1684,7 @@ function generatePDF(){
 <div class="upgrade-overlay" id="upgradeOverlay" style="display:none" onclick="if(event.target===this)closeUpgrade()">
   <div class="upgrade-sheet">
     <div class="upgrade-handle"></div>
+    <button class="upgrade-close" onclick="closeUpgrade()">✕</button>
     <div style="font-size:32px;text-align:center;margin-bottom:10px;line-height:1">🔒</div>
     <div class="upgrade-sheet-title">See how to get debt-free 3x faster</div>
     <div class="upgrade-sheet-sub">Every month you wait, the bank takes more. The full plan shows your exact escape route and puts the tools in your hands.</div>
@@ -1699,7 +1708,6 @@ function generatePDF(){
     </div>
     <button class="upgrade-btn" onclick="window.location.href='https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00'">See how to get debt-free 3x faster →</button>
     <div class="cp-fine">One-time payment · No subscription · Instant access · Secured by Stripe</div>
-    <button class="upgrade-dismiss" onclick="closeUpgrade()">Maybe later</button>
   </div>
 </div>
 
@@ -2032,6 +2040,7 @@ window.addEventListener('beforeunload',()=>save());
 <div class="upgrade-overlay" id="upgradeOverlay" style="display:none" onclick="if(event.target===this)closeUpgrade()">
   <div class="upgrade-sheet">
     <div class="upgrade-handle"></div>
+    <button class="upgrade-close" onclick="closeUpgrade()">✕</button>
     <div style="font-size:32px;text-align:center;margin-bottom:10px;line-height:1">🔒</div>
     <div class="upgrade-sheet-title">See how to get debt-free 3x faster</div>
     <div class="upgrade-sheet-sub">Every month you wait, the bank takes more. The full plan shows your exact escape route and puts the tools in your hands.</div>
@@ -2055,7 +2064,6 @@ window.addEventListener('beforeunload',()=>save());
     </div>
     <button class="upgrade-btn" onclick="window.location.href='https://buy.stripe.com/test_8x200i20r8v4alpcBpf7i00'">See how to get debt-free 3x faster →</button>
     <div class="cp-fine">One-time payment · No subscription · Instant access · Secured by Stripe</div>
-    <button class="upgrade-dismiss" onclick="closeUpgrade()">Maybe later</button>
   </div>
 </div>
 
