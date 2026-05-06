@@ -573,24 +573,14 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .cp-price-badge{font-size:10px;font-weight:700;background:rgba(255,82,82,0.15);color:var(--danger);border:1px solid rgba(255,82,82,0.25);border-radius:5px;padding:2px 6px;white-space:nowrap}
 .cp-price-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
 .cp-fine{font-size:11px;color:var(--text3);text-align:center;margin-top:8px;line-height:1.6}
-.blur-preview{position:relative;margin-top:20px;border-radius:14px;overflow:hidden;border:1px solid var(--border2);min-height:340px}
+.blur-preview{position:relative;margin-top:20px;border-radius:14px;overflow:hidden;border:1px solid var(--border2);min-height:420px}
 .blur-preview-inner{filter:blur(6px);pointer-events:none;user-select:none;padding:18px;background:var(--bg2)}
-.blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px 16px;background:rgba(10,10,10,.7);text-align:center;overflow-y:auto}
+.blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;background:rgba(10,10,10,.75);text-align:center}
 /* Email slide card */
-.email-slide-card{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:26px 22px;margin-top:20px;animation:slideUp .4s cubic-bezier(.22,.61,.36,1)}
-@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.esc-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.esc-title{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px}
-.esc-sub{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px}
-.esc-form{display:flex;gap:8px;margin-bottom:10px}
-.esc-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:13px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;transition:border-color .15s;min-width:0}
+to{opacity:1;transform:translateY(0)}}
 .esc-input:focus{border-color:var(--accent)}
 .esc-input::placeholder{color:var(--text3);font-style:italic}
-.esc-btn{background:var(--accent);color:#0a0a0a;border:none;border-radius:12px;padding:13px 18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;-webkit-appearance:none;flex-shrink:0}
-.esc-skip{display:block;width:100%;background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:12px;padding:8px;cursor:pointer;-webkit-appearance:none;text-align:center;margin-top:4px}
 .esc-skip:hover{color:var(--text2)}
-.esc-fine{font-size:11px;color:var(--text3);text-align:center;margin-top:8px}
-.esc-done{text-align:center;padding:8px 0}
 /* Layout desktop */
 .content{flex:1;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;display:flex;flex-direction:column;align-items:center}
 .tab-pane{display:none;padding:32px 40px 60px;animation:fadeIn .2s ease;max-width:720px;width:100%}
@@ -612,15 +602,14 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   .tab-pane{padding:14px 14px 32px}
   .upgrade-overlay{padding-top:40px;align-items:flex-start}
   .upgrade-sheet{border-radius:20px 20px 0 0;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .esc-form{flex-direction:column}
-  .esc-btn{width:100%;padding:13px}
-  .mgrid{grid-template-columns:1fr 1fr;gap:7px}
+      .mgrid{grid-template-columns:1fr 1fr;gap:7px}
   .vs-wrap{grid-template-columns:1fr;gap:8px}
   .form-row{grid-template-columns:1fr}
   .bud-txn-form-row{grid-template-columns:1fr}
 }
 
 </style>
+<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/fe2e6fbcf7babafd1189ff520/fd16444d026878afba7b95658.js");</script>
 </head>
 <body>
 <div class="shell">
@@ -833,32 +822,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
         </div>
       </div>
     </div>
-
-    <!-- ③ EMAIL SLIDE CARD (shown after 2s, hidden if already submitted) -->
-    <div class="email-slide-card" id="emailSlideCard" style="display:none">
-      <div id="escFormState">
-        <div class="esc-eyebrow">📬 Your plan is ready</div>
-        <div class="esc-title">Want to save your personalized payoff plan?</div>
-        <div class="esc-sub">We'll save your personalized debt payoff roadmap so you can come back to it anytime.</div>
-        <div class="esc-form">
-          <input type="email" class="esc-input" id="escEmailInput" placeholder="your@email.com" onkeydown="if(event.key==='Enter')submitEscEmail()"/>
-          <button class="esc-btn" onclick="submitEscEmail()">Email me my plan →</button>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:8px;margin-top:4px">
-          <div style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:700">✔</span> Your debt-free date &amp; payoff timeline</div>
-          <div style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:700">✔</span> Your total interest savings estimate</div>
-          <div style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px"><span style="color:var(--accent);font-weight:700">✔</span> Your personalized payoff strategy</div>
-        </div>
-        <div class="esc-fine">No spam. No subscriptions. Just your personalized payoff roadmap.</div>
-        <button class="esc-skip" onclick="skipEscEmail()">Continue without saving →</button>
-      </div>
-      <div id="escDoneState" style="display:none">
-        <div class="esc-done">
-          <div style="font-size:28px;margin-bottom:8px">✅</div>
-          <div style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:4px">Perfect — your personalized payoff roadmap has been saved.</div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.5;margin-top:4px">Check your inbox. We've sent your debt-free date, strategy, and full savings breakdown.</div>
-        </div>
-      </div>
     </div>
 
     <!-- ④ FUTURE IDENTITY + PAYWALL (shown after email submitted or skipped) -->
@@ -982,7 +945,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 </main>
 </div><!-- end content wrapper -->
 
-</div><!-- end shell -->
 <script>
 
 // ── Free version functions ────────────────────────────────────────────
@@ -1000,73 +962,9 @@ function showPaywall(){
   }
 }
 
-function skipEscEmail(){
-  var card=document.getElementById('emailSlideCard');
-  if(card)card.style.display='none';
-  showPaywall();
-}
 
-function submitEscEmail(){
-  var input=document.getElementById('escEmailInput');
-  var btn=document.querySelector('.esc-btn');
-  if(!input||!input.value.trim()||!input.value.includes('@')){
-    input.style.borderColor='var(--danger)';
-    input.focus();
-    setTimeout(function(){input.style.borderColor='';},1500);
-    return;
-  }
-  var email=input.value.trim();
-  if(btn){btn.textContent='Saving...';btn.disabled=true;}
-  localStorage.setItem('cp_email',email);
 
-  // Capture context data
-  var debtTotal=debts.reduce(function(s,d){return s+(parseFloat(d.balance)||0);},0);
-  var bankSim=simulate(debts,0,'avalanche');
-  var ourSim=simulate(debts,500,'avalanche');
-  var totalInterest=bankSim?bankSim.totalInterest:0;
-  var dfd=lastResult?fmtDateLong(lastResult.result.months):'';
-  var saved=bankSim&&ourSim?Math.max(0,bankSim.totalInterest-ourSim.totalInterest):0;
-  localStorage.setItem('cp_user_data',JSON.stringify({
-    email:email,
-    debtTotal:Math.round(debtTotal),
-    totalInterest:Math.round(totalInterest),
-    interestSaved:Math.round(saved),
-    debtFreeDate:dfd,
-    strategy:strategy,
-    timestamp:new Date().toISOString()
-  }));
 
-  // Submit via Formspree (reliable fetch, no CORS issues)
-  fetch('https://formspree.io/f/xkoyzgkr', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-    body: JSON.stringify({
-      email: email,
-      DEBT: '$'+Math.round(debtTotal).toLocaleString(),
-      INTEREST: '$'+Math.round(totalInterest).toLocaleString(),
-      SAVED: '$'+Math.round(saved).toLocaleString(),
-      DFDDATE: dfd,
-      STRATEGY: strategy
-    })
-  })
-  .then(function(response){
-    console.log('Formspree response:', response.status);
-  })
-  .catch(function(err){
-    console.log('Formspree error:', err);
-  });
-
-  // Show done state after 1.5s then reveal paywall regardless of network
-  setTimeout(function(){
-    document.getElementById('escFormState').style.display='none';
-    document.getElementById('escDoneState').style.display='block';
-    setTimeout(function(){
-      var card=document.getElementById('emailSlideCard');
-      if(card)card.style.display='none';
-      showPaywall();
-    },2000);
-  },1500);
-}
 
 // ══ STATE ════════════════════════════════════════════════════════════
 let debts=[],budgetItems=[],transactions=[],strategy='avalanche';
@@ -1350,18 +1248,8 @@ function calculate(){
     var p=document.getElementById('painSection');
     if(p)p.scrollIntoView({behavior:'smooth',block:'nearest'});
   },300);
-  // ⑥ After 2 seconds: email card or straight to paywall
-  setTimeout(function(){
-    if(localStorage.getItem('cp_email')){
-      showPaywall();
-    } else {
-      var card=document.getElementById('emailSlideCard');
-      if(card){
-        card.style.display='block';
-        setTimeout(function(){card.scrollIntoView({behavior:'smooth',block:'start'});},100);
-      }
-    }
-  },2000);
+  // Show paywall immediately after contrast cards
+  showPaywall();
   milestones[0].done=true;
   scheduleSave();
   updateJourney();
@@ -1442,11 +1330,8 @@ function executeReset(){
   renderDebtRows();
   if(balanceChart){balanceChart.destroy();balanceChart=null;}
   document.getElementById('metricGrid').style.display='none';
-  ['painSection','contrastSection','emailSlideCard','futureIdentity','blurPreview'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
-  var escForm=document.getElementById('escFormState');if(escForm)escForm.style.display='block';
-  var escDone=document.getElementById('escDoneState');if(escDone)escDone.style.display='none';
-  var escBtn=document.querySelector('.esc-btn');if(escBtn){escBtn.textContent='Email me my plan →';escBtn.disabled=false;}
-  var escInput=document.getElementById('escEmailInput');if(escInput)escInput.value='';
+  ['painSection','contrastSection','futureIdentity','blurPreview'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
+
   document.getElementById('results').style.display='none';
   const recRes=document.getElementById('recResults');if(recRes){recRes.style.display='none';recRes.innerHTML='';}
   const recPh=document.getElementById('recPlaceholder');if(recPh)recPh.style.display='none';
@@ -1845,7 +1730,8 @@ function generatePDF(){
   const bankResult=simulate(debts,0,'avalanche');
   const saved=bankResult?bankResult.totalInterest-lastResult.result.totalInterest:0;
   const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Georgia,serif;background:#fff;color:#1a1a1a;padding:40px;max-width:700px;margin:0 auto;font-size:14px;line-height:1.6}.header{text-align:center;border-bottom:3px solid #1a1a1a;padding-bottom:24px;margin-bottom:32px}.logo{font-size:13px;font-weight:bold;letter-spacing:.15em;text-transform:uppercase;color:#666;margin-bottom:8px}h1{font-size:28px;font-weight:bold;letter-spacing:-0.02em;margin-bottom:4px}.subtitle{font-size:14px;color:#666}.date{font-size:12px;color:#999;margin-top:6px}.hero{background:#0a0a0a;color:#c8f066;border-radius:12px;padding:24px;text-align:center;margin-bottom:28px}.hero-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:8px}.hero-date{font-size:36px;font-weight:bold;letter-spacing:-0.02em;margin-bottom:6px}.hero-sub{font-size:14px;opacity:.8}.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px}.stat{border:1px solid #e0e0e0;border-radius:8px;padding:14px;text-align:center}.stat-label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.stat-val{font-size:20px;font-weight:bold}.stat-val.green{color:#2d8a4e}.stat-val.red{color:#c0392b}h2{font-size:16px;font-weight:bold;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid #e0e0e0}.debt-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:13px}.debt-table th{text-align:left;padding:8px 10px;background:#f5f5f5;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#666;border-bottom:2px solid #e0e0e0}.debt-table td{padding:10px 10px;border-bottom:1px solid #f0f0f0}.rank-badge{display:inline-block;width:22px;height:22px;border-radius:50%;background:#0a0a0a;color:#c8f066;font-size:11px;font-weight:bold;text-align:center;line-height:22px}.plan-box{background:#f9f9f9;border-left:4px solid #0a0a0a;padding:16px 18px;margin-bottom:28px;border-radius:0 8px 8px 0}.plan-step{display:flex;gap:12px;margin-bottom:10px;font-size:13px}.plan-num{width:22px;height:22px;border-radius:50%;background:#0a0a0a;color:#c8f066;font-size:11px;font-weight:bold;text-align:center;line-height:22px;flex-shrink:0}.motivation{background:#0a0a0a;color:#fff;border-radius:12px;padding:20px;text-align:center;margin-bottom:28px}.motivation p{font-size:15px;line-height:1.6;font-style:italic;color:#e0e0e0}.motivation .sig{font-size:12px;color:#666;margin-top:8px}.footer{text-align:center;padding-top:24px;border-top:1px solid #e0e0e0;margin-top:28px;font-size:12px;color:#999}</style></head><body>
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"/><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Georgia,serif;background:#fff;color:#1a1a1a;padding:40px;max-width:700px;margin:0 auto;font-size:14px;line-height:1.6}.header{text-align:center;border-bottom:3px solid #1a1a1a;padding-bottom:24px;margin-bottom:32px}.logo{font-size:13px;font-weight:bold;letter-spacing:.15em;text-transform:uppercase;color:#666;margin-bottom:8px}h1{font-size:28px;font-weight:bold;letter-spacing:-0.02em;margin-bottom:4px}.subtitle{font-size:14px;color:#666}.date{font-size:12px;color:#999;margin-top:6px}.hero{background:#0a0a0a;color:#c8f066;border-radius:12px;padding:24px;text-align:center;margin-bottom:28px}.hero-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:8px}.hero-date{font-size:36px;font-weight:bold;letter-spacing:-0.02em;margin-bottom:6px}.hero-sub{font-size:14px;opacity:.8}.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px}.stat{border:1px solid #e0e0e0;border-radius:8px;padding:14px;text-align:center}.stat-label{font-size:11px;color:#999;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.stat-val{font-size:20px;font-weight:bold}.stat-val.green{color:#2d8a4e}.stat-val.red{color:#c0392b}h2{font-size:16px;font-weight:bold;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid #e0e0e0}.debt-table{width:100%;border-collapse:collapse;margin-bottom:28px;font-size:13px}.debt-table th{text-align:left;padding:8px 10px;background:#f5f5f5;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#666;border-bottom:2px solid #e0e0e0}.debt-table td{padding:10px 10px;border-bottom:1px solid #f0f0f0}.rank-badge{display:inline-block;width:22px;height:22px;border-radius:50%;background:#0a0a0a;color:#c8f066;font-size:11px;font-weight:bold;text-align:center;line-height:22px}.plan-box{background:#f9f9f9;border-left:4px solid #0a0a0a;padding:16px 18px;margin-bottom:28px;border-radius:0 8px 8px 0}.plan-step{display:flex;gap:12px;margin-bottom:10px;font-size:13px}.plan-num{width:22px;height:22px;border-radius:50%;background:#0a0a0a;color:#c8f066;font-size:11px;font-weight:bold;text-align:center;line-height:22px;flex-shrink:0}.motivation{background:#0a0a0a;color:#fff;border-radius:12px;padding:20px;text-align:center;margin-bottom:28px}.motivation p{font-size:15px;line-height:1.6;font-style:italic;color:#e0e0e0}.motivation .sig{font-size:12px;color:#666;margin-top:8px}.footer{text-align:center;padding-top:24px;border-top:1px solid #e0e0e0;margin-top:28px;font-size:12px;color:#999}</style>
+</head><body>
   <div class="header"><div class="logo">ClearPath</div><h1>${name}'s Debt-Free Plan</h1><div class="subtitle">Your personalized roadmap to financial freedom</div><div class="date">Generated on ${today}</div></div>
   <div class="hero"><div class="hero-label">Your debt-free date</div><div class="hero-date">${fmtDateLong(lastResult.result.months)}</div><div class="hero-sub">${fmtYM(lastResult.result.months)} from today</div></div>
   <div class="stats"><div class="stat"><div class="stat-label">Total debt</div><div class="stat-val">${fmtM(totalDebt)}</div></div><div class="stat"><div class="stat-label">Interest on plan</div><div class="stat-val red">${fmtM(lastResult.result.totalInterest)}</div></div><div class="stat"><div class="stat-label">Interest saved</div><div class="stat-val green">${fmtM(Math.max(0,saved))}</div></div></div>
