@@ -1026,27 +1026,63 @@ function submitEscEmail(){
   var totalInterest=bankSim?bankSim.totalInterest:0;
   var dfd=lastResult?fmtDateLong(lastResult.result.months):'';
   var saved=bankSim&&ourSim?Math.max(0,bankSim.totalInterest-ourSim.totalInterest):0;
-  localStorage.setItem('cp_user_data',JSON.stringify({email:email,debtTotal:Math.round(debtTotal),totalInterest:Math.round(totalInterest),interestSaved:Math.round(saved),debtFreeDate:dfd,strategy:strategy,timestamp:new Date().toISOString()}));
+  localStorage.setItem('cp_user_data',JSON.stringify({
+    email:email,
+    debtTotal:Math.round(debtTotal),
+    totalInterest:Math.round(totalInterest),
+    interestSaved:Math.round(saved),
+    debtFreeDate:dfd,
+    strategy:strategy,
+    timestamp:new Date().toISOString()
+  }));
 
-  // Send to Mailchimp
-  var mcUrl='https://us2.list-manage.com/subscribe/post-json?u=731312d1e8ffe1b60d3b9bffe647791c'
-    +'&id=494d579651'
-    +'&EMAIL='+encodeURIComponent(email)
-    +'&DEBT='+encodeURIComponent('$'+Math.round(debtTotal).toLocaleString())
-    +'&INTEREST='+encodeURIComponent('$'+Math.round(totalInterest).toLocaleString())
-    +'&SAVED='+encodeURIComponent('$'+Math.round(saved).toLocaleString())
-    +'&DFDDATE='+encodeURIComponent(dfd)
-    +'&STRATEGY='+encodeURIComponent(strategy)
-    +'&c=_escCb';
-  window._escCb=function(){delete window._escCb;};
-  var s=document.createElement('script');s.src=mcUrl;document.head.appendChild(s);
+  // Submit to Mailchimp via hidden iframe form POST (reliable, no CORS issues)
+  var iframe=document.createElement('iframe');
+  iframe.name='mc_iframe_'+Date.now();
+  iframe.style.display='none';
+  document.body.appendChild(iframe);
 
-  // Show done state then reveal paywall
+  var form=document.createElement('form');
+  form.method='POST';
+  form.action='https://us2.list-manage.com/subscribe/post';
+  form.target=iframe.name;
+
+  var fields={
+    'u':'731312d1e8ffe1b60d3b9bffe647791c',
+    'id':'494d579651',
+    'EMAIL':email,
+    'DEBT':'$'+Math.round(debtTotal).toLocaleString(),
+    'INTEREST':'$'+Math.round(totalInterest).toLocaleString(),
+    'SAVED':'$'+Math.round(saved).toLocaleString(),
+    'DFDDATE':dfd,
+    'STRATEGY':strategy,
+    'subscribe':'Subscribe'
+  };
+
+  Object.keys(fields).forEach(function(key){
+    var input=document.createElement('input');
+    input.type='hidden';
+    input.name=key;
+    input.value=fields[key];
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+
+  // Clean up after submit
+  setTimeout(function(){
+    if(form.parentNode)form.parentNode.removeChild(form);
+  },5000);
+
+  // Show done state after 1.5s then reveal paywall
   setTimeout(function(){
     document.getElementById('escFormState').style.display='none';
     document.getElementById('escDoneState').style.display='block';
     setTimeout(function(){
       var card=document.getElementById('emailSlideCard');if(card)card.style.display='none';
+      // Clean up iframe
+      if(iframe.parentNode)iframe.parentNode.removeChild(iframe);
       showPaywall();
     },2000);
   },1500);
