@@ -791,7 +791,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 
     </div><!-- end results -->
 
-    <!-- ① PAIN SECTION — hits before paywall -->
+    <!-- ① PAIN SECTION -->
     <div id="painSection" style="display:none;margin-top:24px">
       <div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;text-align:center">
         <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--danger);margin-bottom:10px;opacity:.8">⚠ While you've been paying minimums...</div>
@@ -800,7 +800,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
     </div>
 
-    <!-- ② CONTRAST SECTION — the "oh shit" moment -->
+    <!-- ② CONTRAST SECTION -->
     <div id="contrastSection" style="display:none;margin-top:20px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <div style="background:var(--danger-dim);border:1px solid var(--danger-border);border-radius:12px;padding:14px 16px;opacity:0.78;filter:grayscale(0.1)">
@@ -815,7 +815,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
           </div>
         </div>
         <div style="background:rgba(200,240,102,0.11);border:2px solid var(--accent);border-radius:12px;padding:14px 16px;position:relative;box-shadow:0 0 28px rgba(200,240,102,0.2),0 0 0 1px rgba(200,240,102,0.15)">
-          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#0a0a0a;font-size:9px;font-weight:800;padding:2px 10px;border-radius:10px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">✓ Better plan</div>
+          <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#0a0a0a;font-size:9px;font-weight:800;padding:2px 10px;border-radius:10px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">✓ Your plan</div>
           <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">⚡ With ClearPath</div>
           <div style="margin-bottom:10px">
             <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Debt-free</div>
@@ -830,42 +830,17 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
     </div>
 
-    <!-- Future identity line -->
-    <div id="futureIdentity" style="display:none;text-align:center;padding:18px 0 4px">
-      <div style="font-size:14px;color:var(--text2);font-style:italic;line-height:1.6">You're closer than you think to being debt-free.</div>
-    </div>
-
-    <!-- ③ PAYWALL — blurred report + single CTA -->
-    <div class="blur-preview" id="blurPreview" style="display:none;margin-top:20px">
-      <div class="blur-preview-inner">
-        <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Your savings report</div>
-        <div style="font-size:44px;font-weight:800;color:#c8f066;font-family:'DM Mono',monospace;letter-spacing:-0.03em;line-height:1;margin-bottom:4px" id="blurSaved">$00,000</div>
-        <div style="font-size:13px;color:#999;margin-bottom:4px">saved in interest vs minimum payments</div>
-        <div style="font-size:13px;color:#c8f066;font-weight:600;margin-bottom:16px">That's years of your life back.</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:320px;margin:0 auto">
-          <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center">
-            <div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Bank plan</div>
-            <div style="font-size:15px;font-weight:700;color:#ff5252;font-family:'DM Mono',monospace" id="blurBankDate">—</div>
-            <div style="font-size:11px;color:#555;margin-top:3px" id="blurBankInt">—</div>
-          </div>
-          <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center">
-            <div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">ClearPath</div>
-            <div style="font-size:15px;font-weight:700;color:#c8f066;font-family:'DM Mono',monospace" id="blurOurDate">—</div>
-            <div style="font-size:11px;color:#555;margin-top:3px" id="blurOurInt">—</div>
-          </div>
-        </div>
+    <!-- ③ NEXT STEP — paid users go to report -->
+    <div id="paidNextStep" style="display:none;margin-top:20px">
+      <div style="text-align:center;padding:18px 0 4px">
+        <div style="font-size:14px;color:var(--text2);font-style:italic;margin-bottom:16px">You're closer than you think to being debt-free.</div>
       </div>
-      <div class="blur-overlay">
-        <div style="font-size:26px;margin-bottom:8px">🔒</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.3">You're one step away from saving <span id="paywallSaved" style="color:var(--accent)">thousands</span></div>
-        <div style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6">See your exact month-by-month payoff plan, negotiation scripts, and every tool you need to get there faster.</div>
-        <div class="cp-price-block" style="max-width:300px;width:100%;margin:0 auto 12px">
-          <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
-          <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
-        </div>
-        <div class="cp-fine" style="margin-bottom:10px;color:var(--text2);font-size:12px;font-weight:500">No subscriptions. Just a smarter payoff plan.</div>
-        <a href="https://buy.stripe.com/fZu28r4BJ1H226zgGufIs00" class="upgrade-btn" id="paywallBtn" style="font-size:15px;padding:14px 16px;max-width:300px;margin:0 auto">Save <span id="paywallBtnAmt">thousands</span> — show me how →</a>
-        <div class="cp-fine" style="margin-top:10px;color:var(--text2);font-size:11px">🔒 Secure checkout &nbsp;·&nbsp; One-time $47 &nbsp;·&nbsp; Instant access</div>
+      <div style="background:linear-gradient(135deg,rgba(200,240,102,0.10),rgba(200,240,102,0.03));border:1px solid var(--accent-border);border-radius:16px;padding:22px 20px;text-align:center">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px">Your full plan is ready</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:19px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:8px">See exactly how to save <span id="paidSaved" style="color:var(--accent)">thousands</span></div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">Your full savings report, month-by-month plan, and every tool you need is waiting in the Report tab.</div>
+        <button onclick="showTab('recommendation')" class="btn btn-p btn-full" style="font-size:15px;padding:15px;max-width:340px;margin:0 auto;display:block">See my full savings report →</button>
+        <div style="font-size:11px;color:var(--text3);margin-top:10px">Budget · Tools · Progress are all unlocked too</div>
       </div>
     </div>
     <!-- Reset -->
@@ -1546,7 +1521,9 @@ function calculate(){
   renderChart(result.history,result.months);
   document.getElementById('results').style.display='block';
   var _bkSim=simulate(debts,0,'avalanche');
-  var _ourSim=simulate(debts,500,'avalanche');
+  // Use actual extra payment if set, otherwise $500 assumed to show meaningful contrast
+  var _extraAmt=lastResult&&lastResult.extra>0?lastResult.extra:500;
+  var _ourSim=simulate(debts,_extraAmt,'avalanche');
   // ① Pain section
   var _pain=document.getElementById('painSection');if(_pain)_pain.style.display='block';
   var _pi=document.getElementById('painInterest');if(_pi&&_bkSim)_pi.textContent=fmtM(_bkSim.totalInterest);
@@ -1558,20 +1535,11 @@ function calculate(){
     e=document.getElementById('contBankInt');if(e)e.textContent=fmtM(_bkSim.totalInterest);
     e=document.getElementById('contOurDate');if(e)e.textContent=fmtDateLong(_ourSim.months);
     e=document.getElementById('contSaved');if(e)e.textContent=fmtM(_sv)+' in interest';
-    var _ps=document.getElementById('paywallSaved');if(_ps)_ps.textContent=fmtM(_sv);
-    var _pb=document.getElementById('paywallBtnAmt');if(_pb)_pb.textContent=fmtM(_sv);
-    var _fi=document.getElementById('futureIdentity');if(_fi)_fi.style.display='block';
   }
-  // ③ Blurred paywall
-  var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
-  if(_bkSim&&_ourSim){
-    var _sv2=Math.max(0,_bkSim.totalInterest-_ourSim.totalInterest);
-    e=document.getElementById('blurSaved');if(e)e.textContent=fmtM(_sv2);
-    e=document.getElementById('blurBankDate');if(e)e.textContent=fmtDateLong(_bkSim.months);
-    e=document.getElementById('blurBankInt');if(e)e.textContent=fmtM(_bkSim.totalInterest)+' interest';
-    e=document.getElementById('blurOurDate');if(e)e.textContent=fmtDateLong(_ourSim.months);
-    e=document.getElementById('blurOurInt');if(e)e.textContent=fmtM(_ourSim.totalInterest)+' interest';
-  }
+  // ③ Paid next step CTA
+  var _pns=document.getElementById('paidNextStep');if(_pns)_pns.style.display='block';
+  var _psSaved=document.getElementById('paidSaved');
+  if(_psSaved&&_bkSim&&_ourSim)_psSaved.textContent=fmtM(Math.max(0,_bkSim.totalInterest-_ourSim.totalInterest));
   // Extra payment hint
   var _hint=document.getElementById('extraImpactHint');
   if(_hint&&lastResult){
@@ -1664,7 +1632,7 @@ function executeReset(){
   const recRes=document.getElementById('recResults');if(recRes){recRes.style.display='none';recRes.innerHTML='';}
   const recPh=document.getElementById('recPlaceholder');if(recPh)recPh.style.display='none';
   const recHook=document.getElementById('recHook');if(recHook)recHook.style.display='none';
-  ['painSection','contrastSection','blurPreview','cpFreeBanner','futureIdentity'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
+  ['painSection','contrastSection','paidNextStep'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
   ['income','expenses','bills','subscriptions'].forEach(renderBudCatRows);
   renderTxnList();updateBudSummary();
   updateJourney();setStrat('avalanche');
@@ -1917,16 +1885,48 @@ function updateRecChecklist(){
   }
 }
 
+function showRecMessage(type,title,body,tabTarget,btnLabel){
+  var ph=document.getElementById('recPlaceholder');
+  if(!ph)return;
+  var colors={danger:'var(--danger-dim)|var(--danger-border)|var(--danger)',warning:'var(--warning-dim)|var(--warning-border)|var(--warning)',neutral:'var(--bg3)|var(--border2)|var(--text)'};
+  var c=(colors[type]||colors.neutral).split('|');
+  ph.style.display='block';
+  ph.style.background=c[0];
+  ph.style.border='1px solid '+c[1];
+  ph.style.borderRadius='12px';
+  ph.style.padding='16px 18px';
+  ph.style.textAlign='left';
+  var btn='<button class="btn btn-p" style="font-size:13px;padding:9px 16px" onclick="showTab(\'' + tabTarget + '\')">' + btnLabel + '</button>';
+  var titleDiv='<div style="font-size:13px;font-weight:700;margin-bottom:6px;color:' + c[2] + '">' + title + '</div>';
+  var bodyDiv='<div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px">' + body + '</div>';
+  ph.innerHTML = titleDiv + bodyDiv + btn;
+}
+
 function generateRec(){
   const income=parseFloat(document.getElementById('rec-income').value)||0;
   const expensesVal=parseFloat(document.getElementById('rec-expenses').value)||0;
   const validDebts=debts.filter(d=>parseFloat(d.balance)>0);
+  const ph=document.getElementById('recPlaceholder');
+
+  // ── Validation ───────────────────────────────────────────────────
   if(!validDebts.length){
-    document.getElementById('recPlaceholder').style.display='block';
-    document.getElementById('recPlaceholder').textContent='Add your debts in Step 1 first.';
+    showRecMessage('danger','⚠ No debts added yet','Go to the <strong>Debts tab</strong> and add your debts first. Your report is built from your actual numbers.','calculator','Go to Debts tab →');
     return;
   }
-  document.getElementById('recPlaceholder').style.display='none';
+  if(!income){
+    showRecMessage('warning','📊 Income needed for your report','Your savings report needs your monthly income to calculate how much you can put toward debt. Add it in the <strong>Budget tab</strong> or enter it above.','budget','Go to Budget tab →');
+    const incField=document.getElementById('rec-income');
+    if(incField){incField.style.borderColor='var(--warning)';incField.focus();setTimeout(function(){incField.style.borderColor='';},2500);}
+    return;
+  }
+  if(!expensesVal){
+    showRecMessage('neutral','💡 Add expenses for a more accurate report','Your monthly expenses help us calculate how much you can put toward debt. Add them in the <strong>Budget tab</strong> or enter above.','budget','Add expenses →');
+    const expField=document.getElementById('rec-expenses');
+    if(expField){expField.style.borderColor='var(--accent-border)';setTimeout(function(){expField.style.borderColor='';},2500);}
+    return;
+  }
+
+  ph.style.display='none';
   const totalDebt=validDebts.reduce((s,d)=>s+(parseFloat(d.balance)||0),0);
   const totalMin=validDebts.reduce((s,d)=>s+(parseFloat(d.minPay)||0),0);
   // Show loading
