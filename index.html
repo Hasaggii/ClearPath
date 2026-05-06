@@ -14,6 +14,87 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><path d='M20 75 Q35 30 60 25 L75 20' stroke='%23c8f066' stroke-width='12' fill='none' stroke-linecap='round'/><path d='M38 75 Q50 50 70 42' stroke='%23c8f066' stroke-width='8' fill='none' stroke-linecap='round' opacity='0.5'/></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
+
+// ── Email slide-in card ───────────────────────────────────────────────
+function showEscCard(){
+  var card=document.getElementById('emailSlideCard');
+  // Skip if already submitted
+  if(localStorage.getItem('cp_email')||!card)return;
+  card.style.display='block';
+}
+
+function skipEscEmail(){
+  var card=document.getElementById('emailSlideCard');
+  if(card)card.style.display='none';
+  // Show paywall sections immediately
+  var _fp=document.getElementById('futureIdentity');if(_fp)_fp.style.display='block';
+  var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
+}
+
+function submitEscEmail(){
+  var input=document.getElementById('escEmailInput');
+  var btn=document.querySelector('.esc-btn');
+  if(!input||!input.value.trim()||!input.value.includes('@')){
+    input.style.borderColor='var(--danger)';
+    input.focus();
+    setTimeout(function(){input.style.borderColor='';},1500);
+    return;
+  }
+  var email=input.value.trim();
+  if(btn){btn.textContent='Saving...';btn.disabled=true;}
+  localStorage.setItem('cp_email',email);
+
+  // Build data payload with all user context
+  var debtTotal=debts.reduce(function(s,d){return s+(parseFloat(d.balance)||0);},0);
+  var bankSim=simulate(debts,0,'avalanche');
+  var ourSim=simulate(debts,500,'avalanche');
+  var totalInterest=bankSim?bankSim.totalInterest:0;
+  var debtFreeDate=lastResult?fmtDateLong(lastResult.result.months):'';
+  var interestSaved=bankSim&&ourSim?Math.max(0,bankSim.totalInterest-ourSim.totalInterest):0;
+
+  // Store context for email personalization
+  var userData={
+    email:email,
+    debtTotal:Math.round(debtTotal),
+    totalInterest:Math.round(totalInterest),
+    interestSaved:Math.round(interestSaved),
+    debtFreeDate:debtFreeDate,
+    strategy:strategy,
+    timestamp:new Date().toISOString()
+  };
+  localStorage.setItem('cp_user_data',JSON.stringify(userData));
+
+  // Send to Mailchimp via JSONP with merge fields
+  var mcUrl='https://us2.list-manage.com/subscribe/post-json?u=731312d1e8ffe1b60d3b9bffe647791c'
+    +'&id=494d579651'
+    +'&EMAIL='+encodeURIComponent(email)
+    +'&DEBT='+encodeURIComponent('$'+Math.round(debtTotal).toLocaleString())
+    +'&INTEREST='+encodeURIComponent('$'+Math.round(totalInterest).toLocaleString())
+    +'&SAVED='+encodeURIComponent('$'+Math.round(interestSaved).toLocaleString())
+    +'&DFDDATE='+encodeURIComponent(debtFreeDate)
+    +'&STRATEGY='+encodeURIComponent(strategy)
+    +'&c=_escCallback';
+
+  window._escCallback=function(){delete window._escCallback;};
+  var s=document.createElement('script');
+  s.src=mcUrl;
+  document.head.appendChild(s);
+
+  // Show done state after 1.5s
+  setTimeout(function(){
+    document.getElementById('escFormState').style.display='none';
+    document.getElementById('escDoneState').style.display='block';
+    // After 2 more seconds, hide card and show paywall
+    setTimeout(function(){
+      var card=document.getElementById('emailSlideCard');
+      if(card)card.style.display='none';
+      var _fp=document.getElementById('futureIdentity');if(_fp)_fp.style.display='block';
+      var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
+    },2000);
+  },1500);
+}
+
+
 </script>
 
 <style>
@@ -610,6 +691,31 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 
 
 
+
+/* ── Email capture card ── */
+.email-slide-card{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:22px 20px;margin-top:20px;display:none;animation:slideUp .4s cubic-bezier(.22,.61,.36,1)}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.esc-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.esc-title{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px}
+.esc-sub{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.esc-form{display:flex;gap:8px;margin-bottom:10px}
+.esc-input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;transition:border-color .15s;min-width:0}
+.esc-input:focus{border-color:var(--accent)}
+.esc-input::placeholder{color:var(--text3);font-style:italic}
+.esc-btn{background:var(--accent);color:#0a0a0a;border:none;border-radius:10px;padding:11px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;-webkit-appearance:none;flex-shrink:0;transition:opacity .15s}
+.esc-btn:active{opacity:.85}
+.esc-skip{display:block;width:100%;background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:12px;padding:6px;cursor:pointer;-webkit-appearance:none;text-align:center;margin-top:4px}
+.esc-skip:hover{color:var(--text2)}
+.esc-fine{font-size:11px;color:var(--text3);text-align:center;margin-top:8px;line-height:1.6}
+.esc-done{text-align:center;padding:10px 0}
+.esc-done-icon{font-size:28px;margin-bottom:6px}
+.esc-done-title{font-size:15px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.esc-done-sub{font-size:13px;color:var(--text2);line-height:1.5}
+@media(max-width:640px){
+  .esc-form{flex-direction:column}
+  .esc-btn{width:100%;padding:13px}
+}
+
 </style>
 </head>
 <body>
@@ -834,6 +940,30 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
             <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contSaved">—</div>
             <div style="font-size:11px;color:var(--accent);opacity:0.7;margin-top:4px;font-weight:500">That's your money — not theirs.</div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email capture slide-in card -->
+    <div class="email-slide-card" id="emailSlideCard">
+      <!-- Form state -->
+      <div id="escFormState">
+        <div class="esc-eyebrow">📬 Your plan is ready</div>
+        <div class="esc-title">Want to save your personalized payoff plan?</div>
+        <div class="esc-sub">We'll email you your debt-free date, payoff strategy, and savings breakdown so you can come back to it anytime.</div>
+        <div class="esc-form">
+          <input type="email" class="esc-input" id="escEmailInput" placeholder="your@email.com" onkeydown="if(event.key==='Enter')submitEscEmail()"/>
+          <button class="esc-btn" onclick="submitEscEmail()">Email me my plan →</button>
+        </div>
+        <div class="esc-fine">No spam. No subscriptions. Just your personalized payoff roadmap.</div>
+        <button class="esc-skip" onclick="skipEscEmail()">Continue without saving →</button>
+      </div>
+      <!-- Done state -->
+      <div id="escDoneState" style="display:none">
+        <div class="esc-done">
+          <div class="esc-done-icon">✅</div>
+          <div class="esc-done-title">Your plan is on its way!</div>
+          <div class="esc-done-sub">Check your inbox. We've sent your debt-free date, payoff strategy, and savings breakdown.</div>
         </div>
       </div>
     </div>
@@ -1237,8 +1367,7 @@ function calculate(){
     var _pb=document.getElementById('paywallBtnAmt');if(_pb)_pb.textContent=fmtM(_sv);
     var _fi=document.getElementById('futureIdentity');if(_fi)_fi.style.display='block';
   }
-  // ③ Blurred paywall
-  var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
+  // ③ Pre-populate blurred paywall data (hidden until after email card)
   if(_bkSim&&_ourSim){
     var _sv2=Math.max(0,_bkSim.totalInterest-_ourSim.totalInterest);
     e=document.getElementById('blurSaved');if(e)e.textContent=fmtM(_sv2);
@@ -1255,7 +1384,21 @@ function calculate(){
     if(_s50>0){_hint.textContent='$50/mo extra saves '+fmtYM(Math.max(0,_s50))+' · $100/mo saves '+fmtYM(Math.max(0,_s100));_hint.style.color='var(--accent)';}
   }
   // Scroll to pain section smoothly
-  setTimeout(function(){var p=document.getElementById('painSection');if(p)p.scrollIntoView({behavior:'smooth',block:'nearest'});},400);
+  // Show pain + contrast immediately, scroll to pain
+  setTimeout(function(){
+    var p=document.getElementById('painSection');
+    if(p)p.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },400);
+  // After 2 seconds: show email card (or skip straight to paywall if already submitted)
+  setTimeout(function(){
+    if(localStorage.getItem('cp_email')){
+      // Already have email — go straight to paywall
+      var _fp=document.getElementById('futureIdentity');if(_fp)_fp.style.display='block';
+      var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
+    } else {
+      showEscCard();
+    }
+  },2000);
   milestones[0].done=true;
   scheduleSave();
   updateJourney();
