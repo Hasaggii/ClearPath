@@ -13,89 +13,7 @@
 <meta property="og:type" content="website"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><path d='M20 75 Q35 30 60 25 L75 20' stroke='%23c8f066' stroke-width='12' fill='none' stroke-linecap='round'/><path d='M38 75 Q50 50 70 42' stroke='%23c8f066' stroke-width='8' fill='none' stroke-linecap='round' opacity='0.5'/></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
-
-// ── Email slide-in card ───────────────────────────────────────────────
-function showEscCard(){
-  var card=document.getElementById('emailSlideCard');
-  // Skip if already submitted
-  if(localStorage.getItem('cp_email')||!card)return;
-  card.style.display='block';
-}
-
-function skipEscEmail(){
-  var card=document.getElementById('emailSlideCard');
-  if(card)card.style.display='none';
-  // Show paywall sections immediately
-  var _fp=document.getElementById('futureIdentity');if(_fp)_fp.style.display='block';
-  var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
-}
-
-function submitEscEmail(){
-  var input=document.getElementById('escEmailInput');
-  var btn=document.querySelector('.esc-btn');
-  if(!input||!input.value.trim()||!input.value.includes('@')){
-    input.style.borderColor='var(--danger)';
-    input.focus();
-    setTimeout(function(){input.style.borderColor='';},1500);
-    return;
-  }
-  var email=input.value.trim();
-  if(btn){btn.textContent='Saving...';btn.disabled=true;}
-  localStorage.setItem('cp_email',email);
-
-  // Build data payload with all user context
-  var debtTotal=debts.reduce(function(s,d){return s+(parseFloat(d.balance)||0);},0);
-  var bankSim=simulate(debts,0,'avalanche');
-  var ourSim=simulate(debts,500,'avalanche');
-  var totalInterest=bankSim?bankSim.totalInterest:0;
-  var debtFreeDate=lastResult?fmtDateLong(lastResult.result.months):'';
-  var interestSaved=bankSim&&ourSim?Math.max(0,bankSim.totalInterest-ourSim.totalInterest):0;
-
-  // Store context for email personalization
-  var userData={
-    email:email,
-    debtTotal:Math.round(debtTotal),
-    totalInterest:Math.round(totalInterest),
-    interestSaved:Math.round(interestSaved),
-    debtFreeDate:debtFreeDate,
-    strategy:strategy,
-    timestamp:new Date().toISOString()
-  };
-  localStorage.setItem('cp_user_data',JSON.stringify(userData));
-
-  // Send to Mailchimp via JSONP with merge fields
-  var mcUrl='https://us2.list-manage.com/subscribe/post-json?u=731312d1e8ffe1b60d3b9bffe647791c'
-    +'&id=494d579651'
-    +'&EMAIL='+encodeURIComponent(email)
-    +'&DEBT='+encodeURIComponent('$'+Math.round(debtTotal).toLocaleString())
-    +'&INTEREST='+encodeURIComponent('$'+Math.round(totalInterest).toLocaleString())
-    +'&SAVED='+encodeURIComponent('$'+Math.round(interestSaved).toLocaleString())
-    +'&DFDDATE='+encodeURIComponent(debtFreeDate)
-    +'&STRATEGY='+encodeURIComponent(strategy)
-    +'&c=_escCallback';
-
-  window._escCallback=function(){delete window._escCallback;};
-  var s=document.createElement('script');
-  s.src=mcUrl;
-  document.head.appendChild(s);
-
-  // Show done state after 1.5s
-  setTimeout(function(){
-    document.getElementById('escFormState').style.display='none';
-    document.getElementById('escDoneState').style.display='block';
-    // After 2 more seconds, hide card and show paywall
-    setTimeout(function(){
-      var card=document.getElementById('emailSlideCard');
-      if(card)card.style.display='none';
-      var _fp=document.getElementById('futureIdentity');if(_fp)_fp.style.display='block';
-      var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
-    },2000);
-  },1500);
-}
-
-
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -634,8 +552,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 }
 
 /* ── Free version styles ── */
-.upgrade-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:flex-end;justify-content:center;z-index:9999;backdrop-filter:blur(6px)}
-.upgrade-sheet{background:var(--bg2);border:1px solid var(--border2);border-radius:22px 22px 0 0;padding:12px 24px 40px;width:100%;max-width:480px;position:relative;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:sheetUp .3s cubic-bezier(.22,.61,.36,1)}
+.upgrade-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:flex-end;justify-content:center;z-index:9999;backdrop-filter:blur(6px);overflow-y:auto;padding-top:60px}
+.upgrade-sheet{background:var(--bg2);border:1px solid var(--border2);border-radius:22px 22px 0 0;padding:12px 24px 40px;width:100%;max-width:480px;position:relative;margin-top:auto;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:sheetUp .3s cubic-bezier(.22,.61,.36,1)}
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .upgrade-handle{width:40px;height:4px;border-radius:2px;background:var(--border2);margin:0 auto 18px}
 .upgrade-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;transition:all .15s}
@@ -654,22 +572,31 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 .cp-price-now{font-size:20px;font-weight:800;color:var(--accent);font-family:'DM Mono',monospace;letter-spacing:-0.02em;line-height:1}
 .cp-price-badge{font-size:10px;font-weight:700;background:rgba(255,82,82,0.15);color:var(--danger);border:1px solid rgba(255,82,82,0.25);border-radius:5px;padding:2px 6px;white-space:nowrap}
 .cp-price-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
-.cp-timer-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;font-weight:600;white-space:nowrap}
-.cp-timer{font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:var(--text2);white-space:nowrap}
 .cp-fine{font-size:11px;color:var(--text3);text-align:center;margin-top:8px;line-height:1.6}
-.cp-free-banner{background:linear-gradient(135deg,rgba(200,240,102,.09),rgba(200,240,102,.02));border:1px solid var(--accent-border);border-radius:16px;padding:18px 20px;text-align:center;margin-top:16px}
-.cp-free-banner-eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.cp-free-banner-title{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:4px}
 .blur-preview{position:relative;margin-top:20px;border-radius:14px;overflow:hidden;border:1px solid var(--border2);min-height:340px}
 .blur-preview-inner{filter:blur(6px);pointer-events:none;user-select:none;padding:18px;background:var(--bg2)}
-.blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:20px;padding-left:16px;padding-right:16px;padding-bottom:20px;background:rgba(10,10,10,.7);text-align:center;overflow-y:auto}
+.blur-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px 16px;background:rgba(10,10,10,.7);text-align:center;overflow-y:auto}
+/* Email slide card */
+.email-slide-card{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:22px 20px;margin-top:20px;animation:slideUp .4s cubic-bezier(.22,.61,.36,1)}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.esc-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.esc-title{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px}
+.esc-sub{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.esc-form{display:flex;gap:8px;margin-bottom:10px}
+.esc-input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;transition:border-color .15s;min-width:0}
+.esc-input:focus{border-color:var(--accent)}
+.esc-input::placeholder{color:var(--text3);font-style:italic}
+.esc-btn{background:var(--accent);color:#0a0a0a;border:none;border-radius:10px;padding:11px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;-webkit-appearance:none;flex-shrink:0}
+.esc-skip{display:block;width:100%;background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:12px;padding:8px;cursor:pointer;-webkit-appearance:none;text-align:center;margin-top:4px}
+.esc-skip:hover{color:var(--text2)}
+.esc-fine{font-size:11px;color:var(--text3);text-align:center;margin-top:8px}
+.esc-done{text-align:center;padding:8px 0}
+/* Layout desktop */
 .content{flex:1;overflow-y:auto;height:100%;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;display:flex;flex-direction:column;align-items:center}
 .tab-pane{display:none;padding:32px 40px 60px;animation:fadeIn .2s ease;max-width:720px;width:100%}
 .topbar{flex-shrink:0;width:240px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100%;z-index:100}
+/* Mobile */
 @media(max-width:640px){
-  .upgrade-overlay{align-items:flex-end}
-  .upgrade-sheet{border-radius:20px 20px 0 0;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .tab-pane{padding:14px 14px 32px}
   html,body{height:100%;height:100dvh;overflow:hidden}
   .shell{flex-direction:column;height:100dvh;overflow:hidden}
   .topbar{width:100%;flex-direction:column;border-right:none;border-bottom:1px solid var(--border);flex-shrink:0;height:auto}
@@ -681,39 +608,16 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
   .bnav-btn.active{background:none;border-top-color:var(--accent);color:var(--accent)}
   .bnav-icon{font-size:19px;line-height:1;width:auto}
   .bnav-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;margin-top:2px}
-  .content{flex:1;overflow-y:auto;min-height:0;-webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;display:flex;flex-direction:column;align-items:center}
+  .content{flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column;align-items:center}
+  .tab-pane{padding:14px 14px 32px}
+  .upgrade-overlay{padding-top:40px;align-items:flex-start}
+  .upgrade-sheet{border-radius:20px 20px 0 0;max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .esc-form{flex-direction:column}
+  .esc-btn{width:100%;padding:13px}
   .mgrid{grid-template-columns:1fr 1fr;gap:7px}
   .vs-wrap{grid-template-columns:1fr;gap:8px}
   .form-row{grid-template-columns:1fr}
   .bud-txn-form-row{grid-template-columns:1fr}
-}
-
-
-
-
-
-/* ── Email capture card ── */
-.email-slide-card{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:22px 20px;margin-top:20px;display:none;animation:slideUp .4s cubic-bezier(.22,.61,.36,1)}
-@keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.esc-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.esc-title{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:6px}
-.esc-sub{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px}
-.esc-form{display:flex;gap:8px;margin-bottom:10px}
-.esc-input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;transition:border-color .15s;min-width:0}
-.esc-input:focus{border-color:var(--accent)}
-.esc-input::placeholder{color:var(--text3);font-style:italic}
-.esc-btn{background:var(--accent);color:#0a0a0a;border:none;border-radius:10px;padding:11px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;-webkit-appearance:none;flex-shrink:0;transition:opacity .15s}
-.esc-btn:active{opacity:.85}
-.esc-skip{display:block;width:100%;background:none;border:none;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:12px;padding:6px;cursor:pointer;-webkit-appearance:none;text-align:center;margin-top:4px}
-.esc-skip:hover{color:var(--text2)}
-.esc-fine{font-size:11px;color:var(--text3);text-align:center;margin-top:8px;line-height:1.6}
-.esc-done{text-align:center;padding:10px 0}
-.esc-done-icon{font-size:28px;margin-bottom:6px}
-.esc-done-title{font-size:15px;font-weight:700;color:var(--accent);margin-bottom:4px}
-.esc-done-sub{font-size:13px;color:var(--text2);line-height:1.5}
-@media(max-width:640px){
-  .esc-form{flex-direction:column}
-  .esc-btn{width:100%;padding:13px}
 }
 
 </style>
@@ -904,8 +808,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     </div><!-- end results -->
 
 
-
-    <!-- ① PAIN SECTION — hits before paywall -->
+    <!-- ① PAIN SECTION -->
     <div id="painSection" style="display:none;margin-top:24px">
       <div style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 0;text-align:center">
         <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--danger);margin-bottom:10px;opacity:.8">⚠ While you've been paying minimums...</div>
@@ -914,39 +817,25 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
       </div>
     </div>
 
-    <!-- ② CONTRAST SECTION — the "oh shit" moment -->
+    <!-- ② CONTRAST SECTION -->
     <div id="contrastSection" style="display:none;margin-top:20px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <div style="background:var(--danger-dim);border:1px solid var(--danger-border);border-radius:12px;padding:14px 16px;opacity:0.78;filter:grayscale(0.1)">
           <div style="font-size:10px;font-weight:700;color:var(--danger);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">🏦 If nothing changes</div>
-          <div style="margin-bottom:8px">
-            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Debt-free</div>
-            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--danger)" id="contBankDate">—</div>
-          </div>
-          <div>
-            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Total interest</div>
-            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--danger)" id="contBankInt">—</div>
-          </div>
+          <div style="margin-bottom:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Debt-free</div><div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--danger)" id="contBankDate">—</div></div>
+          <div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px">Total interest</div><div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--danger)" id="contBankInt">—</div></div>
         </div>
         <div style="background:rgba(200,240,102,0.11);border:2px solid var(--accent);border-radius:12px;padding:14px 16px;position:relative;box-shadow:0 0 28px rgba(200,240,102,0.2),0 0 0 1px rgba(200,240,102,0.15)">
           <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent);color:#0a0a0a;font-size:9px;font-weight:800;padding:2px 10px;border-radius:10px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap">✓ Better plan</div>
           <div style="font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">⚡ With ClearPath</div>
-          <div style="margin-bottom:10px">
-            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Debt-free</div>
-            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contOurDate">—</div>
-          </div>
-          <div>
-            <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">You save</div>
-            <div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contSaved">—</div>
-            <div style="font-size:11px;color:var(--accent);opacity:0.7;margin-top:4px;font-weight:500">That's your money — not theirs.</div>
-          </div>
+          <div style="margin-bottom:10px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">Debt-free</div><div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contOurDate">—</div></div>
+          <div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px">You save</div><div style="font-size:15px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent)" id="contSaved">—</div><div style="font-size:11px;color:var(--accent);opacity:0.7;margin-top:4px;font-weight:500">That's your money — not theirs.</div></div>
         </div>
       </div>
     </div>
 
-    <!-- Email capture slide-in card -->
-    <div class="email-slide-card" id="emailSlideCard">
-      <!-- Form state -->
+    <!-- ③ EMAIL SLIDE CARD (shown after 2s, hidden if already submitted) -->
+    <div class="email-slide-card" id="emailSlideCard" style="display:none">
       <div id="escFormState">
         <div class="esc-eyebrow">📬 Your plan is ready</div>
         <div class="esc-title">Want to save your personalized payoff plan?</div>
@@ -958,22 +847,20 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
         <div class="esc-fine">No spam. No subscriptions. Just your personalized payoff roadmap.</div>
         <button class="esc-skip" onclick="skipEscEmail()">Continue without saving →</button>
       </div>
-      <!-- Done state -->
       <div id="escDoneState" style="display:none">
         <div class="esc-done">
-          <div class="esc-done-icon">✅</div>
-          <div class="esc-done-title">Your plan is on its way!</div>
-          <div class="esc-done-sub">Check your inbox. We've sent your debt-free date, payoff strategy, and savings breakdown.</div>
+          <div style="font-size:28px;margin-bottom:8px">✅</div>
+          <div style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:4px">Your plan is on its way!</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.5">Check your inbox. We've sent your debt-free date, strategy, and savings breakdown.</div>
         </div>
       </div>
     </div>
 
-    <!-- Future identity line -->
+    <!-- ④ FUTURE IDENTITY + PAYWALL (shown after email submitted or skipped) -->
     <div id="futureIdentity" style="display:none;text-align:center;padding:18px 0 4px">
-      <div style="font-size:14px;color:var(--text2);font-style:italic;line-height:1.6">You're closer than you think to being debt-free.</div>
+      <div style="font-size:14px;color:var(--text2);font-style:italic">You're closer than you think to being debt-free.</div>
     </div>
 
-    <!-- ③ PAYWALL — blurred report + single CTA -->
     <div class="blur-preview" id="blurPreview" style="display:none;margin-top:20px">
       <div class="blur-preview-inner">
         <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Your savings report</div>
@@ -981,16 +868,8 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
         <div style="font-size:13px;color:#999;margin-bottom:4px">saved in interest vs minimum payments</div>
         <div style="font-size:13px;color:#c8f066;font-weight:600;margin-bottom:16px">That's years of your life back.</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:320px;margin:0 auto">
-          <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center">
-            <div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Bank plan</div>
-            <div style="font-size:15px;font-weight:700;color:#ff5252;font-family:'DM Mono',monospace" id="blurBankDate">—</div>
-            <div style="font-size:11px;color:#555;margin-top:3px" id="blurBankInt">—</div>
-          </div>
-          <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center">
-            <div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">ClearPath</div>
-            <div style="font-size:15px;font-weight:700;color:#c8f066;font-family:'DM Mono',monospace" id="blurOurDate">—</div>
-            <div style="font-size:11px;color:#555;margin-top:3px" id="blurOurInt">—</div>
-          </div>
+          <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center"><div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Bank plan</div><div style="font-size:15px;font-weight:700;color:#ff5252;font-family:'DM Mono',monospace" id="blurBankDate">—</div><div style="font-size:11px;color:#555;margin-top:3px" id="blurBankInt">—</div></div>
+          <div style="background:#1a1a1a;border-radius:10px;padding:12px;text-align:center"><div style="font-size:10px;color:#666;margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">ClearPath</div><div style="font-size:15px;font-weight:700;color:#c8f066;font-family:'DM Mono',monospace" id="blurOurDate">—</div><div style="font-size:11px;color:#555;margin-top:3px" id="blurOurInt">—</div></div>
         </div>
       </div>
       <div class="blur-overlay">
@@ -1002,10 +881,11 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
           <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
         </div>
         <div class="cp-fine" style="margin-bottom:10px;color:var(--text2);font-size:12px;font-weight:500">No subscriptions. Just a smarter payoff plan.</div>
-        <a href="https://buy.stripe.com/fZu28r4BJ1H226zgGufIs00" class="upgrade-btn" id="paywallBtn" style="font-size:15px;padding:14px 16px;max-width:300px;margin:0 auto">Save <span id="paywallBtnAmt">thousands</span> — show me how →</a>
-        <div class="cp-fine" style="margin-top:10px;color:var(--text2);font-size:11px">🔒 Secure checkout &nbsp;·&nbsp; One-time $47 &nbsp;·&nbsp; Instant access</div>
+        <a href="https://buy.stripe.com/fZu28r4BJ1H226zgGufIs00" id="paywallCta" class="upgrade-btn" style="font-size:15px;padding:14px 16px;max-width:300px;margin:0 auto">Save <span id="paywallBtnAmt">thousands</span> — show me how →</a>
+        <div class="cp-fine" style="margin-top:10px;color:var(--text2)">🔒 Secure checkout &nbsp;·&nbsp; One-time $47 &nbsp;·&nbsp; Instant access</div>
       </div>
     </div>
+
     <!-- Reset -->
     <div style="margin-top:24px;padding:20px 0 4px;border-top:1px solid var(--border);text-align:center">
       <button class="btn btn-ghost" onclick="confirmReset()" style="font-size:12px;color:var(--text3)">🗑 Reset all data</button>
@@ -1100,10 +980,73 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 </div><!-- end shell -->
 <script>
 
-// ── Free version ─────────────────────────────────────────────────────
+// ── Free version functions ────────────────────────────────────────────
 function showUpgrade(){var el=document.getElementById('upgradeOverlay');if(el){el.style.display='flex';document.body.style.overflow='hidden';}}
 function closeUpgrade(){var el=document.getElementById('upgradeOverlay');if(el){el.style.display='none';document.body.style.overflow='';}}
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeUpgrade();});
+
+// ── Email slide card ──────────────────────────────────────────────────
+function showPaywall(){
+  var _fi=document.getElementById('futureIdentity');if(_fi)_fi.style.display='block';
+  var _bp=document.getElementById('blurPreview');
+  if(_bp){
+    _bp.style.display='block';
+    setTimeout(function(){_bp.scrollIntoView({behavior:'smooth',block:'nearest'});},200);
+  }
+}
+
+function skipEscEmail(){
+  var card=document.getElementById('emailSlideCard');
+  if(card)card.style.display='none';
+  showPaywall();
+}
+
+function submitEscEmail(){
+  var input=document.getElementById('escEmailInput');
+  var btn=document.querySelector('.esc-btn');
+  if(!input||!input.value.trim()||!input.value.includes('@')){
+    input.style.borderColor='var(--danger)';
+    input.focus();
+    setTimeout(function(){input.style.borderColor='';},1500);
+    return;
+  }
+  var email=input.value.trim();
+  if(btn){btn.textContent='Saving...';btn.disabled=true;}
+  localStorage.setItem('cp_email',email);
+
+  // Capture context data
+  var debtTotal=debts.reduce(function(s,d){return s+(parseFloat(d.balance)||0);},0);
+  var bankSim=simulate(debts,0,'avalanche');
+  var ourSim=simulate(debts,500,'avalanche');
+  var totalInterest=bankSim?bankSim.totalInterest:0;
+  var dfd=lastResult?fmtDateLong(lastResult.result.months):'';
+  var saved=bankSim&&ourSim?Math.max(0,bankSim.totalInterest-ourSim.totalInterest):0;
+  localStorage.setItem('cp_user_data',JSON.stringify({email:email,debtTotal:Math.round(debtTotal),totalInterest:Math.round(totalInterest),interestSaved:Math.round(saved),debtFreeDate:dfd,strategy:strategy,timestamp:new Date().toISOString()}));
+
+  // Send to Mailchimp
+  var mcUrl='https://us2.list-manage.com/subscribe/post-json?u=731312d1e8ffe1b60d3b9bffe647791c'
+    +'&id=494d579651'
+    +'&EMAIL='+encodeURIComponent(email)
+    +'&DEBT='+encodeURIComponent('$'+Math.round(debtTotal).toLocaleString())
+    +'&INTEREST='+encodeURIComponent('$'+Math.round(totalInterest).toLocaleString())
+    +'&SAVED='+encodeURIComponent('$'+Math.round(saved).toLocaleString())
+    +'&DFDDATE='+encodeURIComponent(dfd)
+    +'&STRATEGY='+encodeURIComponent(strategy)
+    +'&c=_escCb';
+  window._escCb=function(){delete window._escCb;};
+  var s=document.createElement('script');s.src=mcUrl;document.head.appendChild(s);
+
+  // Show done state then reveal paywall
+  setTimeout(function(){
+    document.getElementById('escFormState').style.display='none';
+    document.getElementById('escDoneState').style.display='block';
+    setTimeout(function(){
+      var card=document.getElementById('emailSlideCard');if(card)card.style.display='none';
+      showPaywall();
+    },2000);
+  },1500);
+}
+
 // ══ STATE ════════════════════════════════════════════════════════════
 let debts=[],budgetItems=[],transactions=[],strategy='avalanche';
 let goals=[],wins=[];
@@ -1351,10 +1294,10 @@ function calculate(){
   document.getElementById('results').style.display='block';
   var _bkSim=simulate(debts,0,'avalanche');
   var _ourSim=simulate(debts,500,'avalanche');
-  // ① Pain section
+  // ① Pain section — immediate
   var _pain=document.getElementById('painSection');if(_pain)_pain.style.display='block';
   var _pi=document.getElementById('painInterest');if(_pi&&_bkSim)_pi.textContent=fmtM(_bkSim.totalInterest);
-  // ② Contrast section
+  // ② Contrast cards — immediate
   var _cont=document.getElementById('contrastSection');if(_cont)_cont.style.display='block';
   if(_bkSim&&_ourSim){
     var _sv=Math.max(0,_bkSim.totalInterest-_ourSim.totalInterest);
@@ -1362,41 +1305,37 @@ function calculate(){
     e=document.getElementById('contBankInt');if(e)e.textContent=fmtM(_bkSim.totalInterest);
     e=document.getElementById('contOurDate');if(e)e.textContent=fmtDateLong(_ourSim.months);
     e=document.getElementById('contSaved');if(e)e.textContent=fmtM(_sv)+' in interest';
-    // Personalize paywall headline + CTA + future identity
     var _ps=document.getElementById('paywallSaved');if(_ps)_ps.textContent=fmtM(_sv);
     var _pb=document.getElementById('paywallBtnAmt');if(_pb)_pb.textContent=fmtM(_sv);
-    var _fi=document.getElementById('futureIdentity');if(_fi)_fi.style.display='block';
   }
-  // ③ Pre-populate blurred paywall data (hidden until after email card)
+  // ③ Pre-populate blurred paywall data (hidden until after email)
   if(_bkSim&&_ourSim){
     var _sv2=Math.max(0,_bkSim.totalInterest-_ourSim.totalInterest);
-    e=document.getElementById('blurSaved');if(e)e.textContent=fmtM(_sv2);
-    e=document.getElementById('blurBankDate');if(e)e.textContent=fmtDateLong(_bkSim.months);
-    e=document.getElementById('blurBankInt');if(e)e.textContent=fmtM(_bkSim.totalInterest)+' interest';
-    e=document.getElementById('blurOurDate');if(e)e.textContent=fmtDateLong(_ourSim.months);
-    e=document.getElementById('blurOurInt');if(e)e.textContent=fmtM(_ourSim.totalInterest)+' interest';
+    var e2=document.getElementById('blurSaved');if(e2)e2.textContent=fmtM(_sv2);
+    e2=document.getElementById('blurBankDate');if(e2)e2.textContent=fmtDateLong(_bkSim.months);
+    e2=document.getElementById('blurBankInt');if(e2)e2.textContent=fmtM(_bkSim.totalInterest)+' interest';
+    e2=document.getElementById('blurOurDate');if(e2)e2.textContent=fmtDateLong(_ourSim.months);
+    e2=document.getElementById('blurOurInt');if(e2)e2.textContent=fmtM(_ourSim.totalInterest)+' interest';
   }
-  // Extra payment hint
+  // ④ Dynamic extra payment hint
   var _hint=document.getElementById('extraImpactHint');
   if(_hint&&lastResult){
     var _r50=simulate(debts,50,'avalanche');var _r100=simulate(debts,100,'avalanche');
     var _s50=lastResult.result.months-(_r50?_r50.months:0);var _s100=lastResult.result.months-(_r100?_r100.months:0);
     if(_s50>0){_hint.textContent='$50/mo extra saves '+fmtYM(Math.max(0,_s50))+' · $100/mo saves '+fmtYM(Math.max(0,_s100));_hint.style.color='var(--accent)';}
   }
-  // Scroll to pain section smoothly
-  // Show pain + contrast immediately, scroll to pain
+  // ⑤ Scroll to pain after 300ms
   setTimeout(function(){
     var p=document.getElementById('painSection');
     if(p)p.scrollIntoView({behavior:'smooth',block:'nearest'});
-  },400);
-  // After 2 seconds: show email card (or skip straight to paywall if already submitted)
+  },300);
+  // ⑥ After 2 seconds: email card or straight to paywall
   setTimeout(function(){
     if(localStorage.getItem('cp_email')){
-      // Already have email — go straight to paywall
-      var _fp=document.getElementById('futureIdentity');if(_fp)_fp.style.display='block';
-      var _bp=document.getElementById('blurPreview');if(_bp)_bp.style.display='block';
+      showPaywall();
     } else {
-      showEscCard();
+      var card=document.getElementById('emailSlideCard');
+      if(card){card.style.display='block';card.scrollIntoView({behavior:'smooth',block:'nearest'});}
     }
   },2000);
   milestones[0].done=true;
@@ -1479,11 +1418,15 @@ function executeReset(){
   renderDebtRows();
   if(balanceChart){balanceChart.destroy();balanceChart=null;}
   document.getElementById('metricGrid').style.display='none';
+  ['painSection','contrastSection','emailSlideCard','futureIdentity','blurPreview'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
+  var escForm=document.getElementById('escFormState');if(escForm)escForm.style.display='block';
+  var escDone=document.getElementById('escDoneState');if(escDone)escDone.style.display='none';
+  var escBtn=document.querySelector('.esc-btn');if(escBtn){escBtn.textContent='Email me my plan →';escBtn.disabled=false;}
+  var escInput=document.getElementById('escEmailInput');if(escInput)escInput.value='';
   document.getElementById('results').style.display='none';
   const recRes=document.getElementById('recResults');if(recRes){recRes.style.display='none';recRes.innerHTML='';}
   const recPh=document.getElementById('recPlaceholder');if(recPh)recPh.style.display='none';
   const recHook=document.getElementById('recHook');if(recHook)recHook.style.display='none';
-  ['painSection','contrastSection','blurPreview','cpFreeBanner'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});
   ['income','expenses','bills','subscriptions'].forEach(renderBudCatRows);
   renderTxnList();updateBudSummary();
   updateJourney();setStrat('avalanche');
@@ -1889,6 +1832,29 @@ function generatePDF(){
   <div class="motivation"><p>"Every dollar you send to debt is a dollar buying back your freedom."</p><div class="sig">— ClearPath</div></div>
   <div class="footer"><p>Generated by <strong>ClearPath</strong> — your path to financial freedom.</p></div>
   
+<div class="upgrade-overlay" id="upgradeOverlay" style="display:none" onclick="if(event.target===this)closeUpgrade()">
+  <div class="upgrade-sheet">
+    <div class="upgrade-handle"></div>
+    <button class="upgrade-close" onclick="closeUpgrade()">✕</button>
+    <div style="font-size:30px;text-align:center;margin-bottom:10px">🔒</div>
+    <div class="upgrade-sheet-title">Unlock my fastest debt-free plan</div>
+    <div class="upgrade-sheet-sub">Every month you wait, the bank takes more. The full plan shows your exact escape route and puts the tools in your hands.</div>
+    <div class="upgrade-sheet-features">
+      <div class="upgrade-feat"><span class="upgrade-feat-icon">🔥</span>See exactly how much your bank is taking from you in interest</div>
+      <div class="upgrade-feat"><span class="upgrade-feat-icon">⚡</span>Your fastest path out — month by month, debt by debt</div>
+      <div class="upgrade-feat"><span class="upgrade-feat-icon">📞</span>Scripts to call and lower your interest rates today</div>
+      <div class="upgrade-feat"><span class="upgrade-feat-icon">🔍</span>Find $300–500/mo you didn't know you were wasting</div>
+      <div class="upgrade-feat"><span class="upgrade-feat-icon">📄</span>Your plan, your name, your debt-free date. Printed. Owned.</div>
+    </div>
+    <div class="cp-price-block" style="margin-bottom:12px">
+      <div class="cp-price-left"><span class="cp-price-was">$97</span><span class="cp-price-now">$47</span><span class="cp-price-badge">51% OFF</span></div>
+      <div class="cp-price-right"><span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span></div>
+    </div>
+    <button class="upgrade-btn" onclick="window.location.href='https://buy.stripe.com/fZu28r4BJ1H226zgGufIs00'">Unlock my fastest debt-free plan →</button>
+    <div class="cp-fine" style="color:var(--text2);margin-top:10px">🔒 Secure checkout &nbsp;·&nbsp; One-time payment &nbsp;·&nbsp; No subscription ever &nbsp;·&nbsp; Instant access</div>
+  </div>
+</div>
+
 </body></html>`;
   const blob=new Blob([html],{type:'text/html'});
   const url=URL.createObjectURL(blob);
@@ -2214,37 +2180,6 @@ window.addEventListener('beforeunload',()=>save());
 
 </script>
 
-
-
-<!-- Upgrade Modal -->
-<div class="upgrade-overlay" id="upgradeOverlay" style="display:none" onclick="if(event.target===this)closeUpgrade()">
-  <div class="upgrade-sheet">
-    <div class="upgrade-handle"></div>
-    <button class="upgrade-close" onclick="closeUpgrade()">✕</button>
-    <div style="font-size:30px;text-align:center;margin-bottom:10px">🔒</div>
-    <div class="upgrade-sheet-title">Unlock my fastest debt-free plan</div>
-    <div class="upgrade-sheet-sub">Every month you wait, the bank takes more. The full plan shows your exact escape route and puts the tools in your hands.</div>
-    <div class="upgrade-sheet-features">
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">🔥</span>See exactly how much your bank is taking from you in interest</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">⚡</span>Your fastest path out — month by month, debt by debt</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">📞</span>Scripts to call and lower your interest rates today</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">🔍</span>Find $300–500/mo you didn't know you were wasting</div>
-      <div class="upgrade-feat"><span class="upgrade-feat-icon">📄</span>Your plan, your name, your debt-free date. Printed. Owned.</div>
-    </div>
-    <div class="cp-price-block" style="margin-bottom:12px">
-      <div class="cp-price-left">
-        <span class="cp-price-was">$97</span>
-        <span class="cp-price-now">$47</span>
-        <span class="cp-price-badge">51% OFF</span>
-      </div>
-      <div class="cp-price-right">
-        <span style="font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.04em">Discount ends soon</span>
-      </div>
-    </div>
-    <button class="upgrade-btn" onclick="window.location.href='https://buy.stripe.com/fZu28r4BJ1H226zgGufIs00'">Unlock my fastest debt-free plan →</button>
-    <div class="cp-fine" style="color:var(--text2);margin-top:10px">🔒 Secure checkout &nbsp;·&nbsp; One-time payment &nbsp;·&nbsp; No subscription ever &nbsp;·&nbsp; Instant access</div>
-  </div>
-</div>
 
 </body>
 </html>
