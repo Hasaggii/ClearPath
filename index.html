@@ -13,7 +13,8 @@
 <meta property="og:type" content="website"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230a0a0a'/><path d='M20 75 Q35 30 60 25 L75 20' stroke='%23c8f066' stroke-width='12' fill='none' stroke-linecap='round'/><path d='M38 75 Q50 50 70 42' stroke='%23c8f066' stroke-width='8' fill='none' stroke-linecap='round' opacity='0.5'/></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js">
+</script>
 
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -607,17 +608,7 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 }
 
 
-/* ── Email capture ── */
-.email-capture{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:20px;margin-top:20px;text-align:center}
-.email-capture-title{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px}
-.email-capture-sub{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px}
-.email-capture-form{display:flex;gap:8px;max-width:340px;margin:0 auto}
-.email-capture-input{flex:1;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;transition:border-color .15s}
-.email-capture-input:focus{border-color:var(--accent)}
-.email-capture-btn{background:var(--accent);color:#0a0a0a;border:none;border-radius:10px;padding:11px 16px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;-webkit-appearance:none;flex-shrink:0}
-.email-capture-done{font-size:13px;color:var(--accent);font-weight:600;padding:10px 0}
-.email-capture-fine{font-size:11px;color:var(--text3);margin-top:8px}
-@media(max-width:640px){.email-capture-form{flex-direction:column}.email-capture-btn{width:100%}}
+
 
 </style>
 </head>
@@ -807,17 +798,6 @@ input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
     </div><!-- end results -->
 
 
-    <!-- Email capture — shown after calculate -->
-    <div class="email-capture" id="emailCapture" style="display:none">
-      <div class="email-capture-title">📬 Save your debt-free date</div>
-      <div class="email-capture-sub">Enter your email and we'll send you your debt-free date plus tips to get there faster. Free.</div>
-      <div class="email-capture-form" id="emailForm">
-        <input type="email" class="email-capture-input" id="emailInput" placeholder="your@email.com" onkeydown="if(event.key==='Enter')submitEmail()"/>
-        <button class="email-capture-btn" onclick="submitEmail()">Save it →</button>
-      </div>
-      <div class="email-capture-done" id="emailDone" style="display:none">✓ Saved! Check your inbox.</div>
-      <div class="email-capture-fine">No spam. Unsubscribe anytime.</div>
-    </div>
 
     <!-- ① PAIN SECTION — hits before paywall -->
     <div id="painSection" style="display:none;margin-top:24px">
@@ -1275,7 +1255,6 @@ function calculate(){
     if(_s50>0){_hint.textContent='$50/mo extra saves '+fmtYM(Math.max(0,_s50))+' · $100/mo saves '+fmtYM(Math.max(0,_s100));_hint.style.color='var(--accent)';}
   }
   // Scroll to pain section smoothly
-  var _ec=document.getElementById('emailCapture');if(_ec&&!localStorage.getItem('cp_email'))_ec.style.display='block';
   setTimeout(function(){var p=document.getElementById('painSection');if(p)p.scrollIntoView({behavior:'smooth',block:'nearest'});},400);
   milestones[0].done=true;
   scheduleSave();
