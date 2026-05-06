@@ -1036,53 +1036,33 @@ function submitEscEmail(){
     timestamp:new Date().toISOString()
   }));
 
-  // Submit to Mailchimp via hidden iframe form POST (reliable, no CORS issues)
-  var iframe=document.createElement('iframe');
-  iframe.name='mc_iframe_'+Date.now();
-  iframe.style.display='none';
-  document.body.appendChild(iframe);
-
-  var form=document.createElement('form');
-  form.method='POST';
-  form.action='https://us2.list-manage.com/subscribe/post';
-  form.target=iframe.name;
-
-  var fields={
-    'u':'731312d1e8ffe1b60d3b9bffe647791c',
-    'id':'494d579651',
-    'EMAIL':email,
-    'DEBT':'$'+Math.round(debtTotal).toLocaleString(),
-    'INTEREST':'$'+Math.round(totalInterest).toLocaleString(),
-    'SAVED':'$'+Math.round(saved).toLocaleString(),
-    'DFDDATE':dfd,
-    'STRATEGY':strategy,
-    'subscribe':'Subscribe'
-  };
-
-  Object.keys(fields).forEach(function(key){
-    var input=document.createElement('input');
-    input.type='hidden';
-    input.name=key;
-    input.value=fields[key];
-    form.appendChild(input);
+  // Submit via Formspree (reliable fetch, no CORS issues)
+  fetch('https://formspree.io/f/xkoyzgkr', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify({
+      email: email,
+      DEBT: '$'+Math.round(debtTotal).toLocaleString(),
+      INTEREST: '$'+Math.round(totalInterest).toLocaleString(),
+      SAVED: '$'+Math.round(saved).toLocaleString(),
+      DFDDATE: dfd,
+      STRATEGY: strategy
+    })
+  })
+  .then(function(response){
+    console.log('Formspree response:', response.status);
+  })
+  .catch(function(err){
+    console.log('Formspree error:', err);
   });
 
-  document.body.appendChild(form);
-  form.submit();
-
-  // Clean up after submit
-  setTimeout(function(){
-    if(form.parentNode)form.parentNode.removeChild(form);
-  },5000);
-
-  // Show done state after 1.5s then reveal paywall
+  // Show done state after 1.5s then reveal paywall regardless of network
   setTimeout(function(){
     document.getElementById('escFormState').style.display='none';
     document.getElementById('escDoneState').style.display='block';
     setTimeout(function(){
-      var card=document.getElementById('emailSlideCard');if(card)card.style.display='none';
-      // Clean up iframe
-      if(iframe.parentNode)iframe.parentNode.removeChild(iframe);
+      var card=document.getElementById('emailSlideCard');
+      if(card)card.style.display='none';
       showPaywall();
     },2000);
   },1500);
