@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ClearPath &mdash; Find Out What Debt Is Really Costing You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#070709;--bg2:#0d0d10;--bg3:#121215;--bg4:#18181c;--bg5:#1e1e23;
+  --accent:#b8f05a;--accent-dim:rgba(184,240,90,0.08);--accent-border:rgba(184,240,90,0.18);
+  --danger:#e84040;--danger-dim:rgba(232,64,64,0.07);--danger-border:rgba(232,64,64,0.2);
+  --text:#ededf0;--text2:#8e8e99;--text3:#52525c;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+  --r:12px;--r-sm:8px;--r-lg:18px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,7,9,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Manrope',sans-serif;font-weight:700;font-size:17px;letter-spacing:-0.03em}
+.nav-logo em{color:var(--accent);font-style:normal}
+.nav-right{display:flex;align-items:center;gap:16px;min-width:0}
+.nav-link{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s}
+.nav-link:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#0a0c06;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;padding:8px 16px;border-radius:var(--r-sm);text-decoration:none;transition:opacity .15s;letter-spacing:-0.01em;white-space:nowrap;flex-shrink:0}
+.nav-cta:hover{opacity:.88}
+
+/* HERO */
+.hero{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;max-width:1100px;margin:0 auto;padding:110px 40px 90px;min-height:100vh}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.07em;text-transform:uppercase;margin-bottom:28px;animation:fadeUp .5s ease both}
+h1{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,50px);line-height:1.1;letter-spacing:-0.04em;color:var(--text);margin-bottom:20px;animation:fadeUp .5s .08s ease both}
+.hl-danger{color:var(--danger)}
+.hero-sub{font-size:16px;color:var(--text2);line-height:1.75;margin-bottom:36px;font-weight:400;max-width:420px;animation:fadeUp .5s .16s ease both}
+.hero-cta-wrap{display:flex;flex-direction:column;gap:14px;animation:fadeUp .5s .24s ease both}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#0a0c06;font-family:'Manrope',sans-serif;font-weight:700;font-size:15px;padding:15px 28px;border-radius:var(--r);text-decoration:none;transition:all .18s;letter-spacing:-0.02em;box-shadow:0 4px 20px rgba(184,240,90,0.22);align-self:flex-start}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 8px 28px rgba(184,240,90,0.28)}
+.btn-primary svg{transition:transform .18s}.btn-primary:hover svg{transform:translateX(3px)}
+.hero-trust{display:flex;align-items:center;font-size:12px;color:var(--text3);flex-wrap:wrap;justify-content:center;gap:4px}
+.hero-trust span{display:flex;align-items:center;gap:5px;padding-right:12px;margin-right:12px;border-right:1px solid var(--border2)}
+.hero-trust span:last-child{border-right:none;padding-right:0;margin-right:0}
+.tdot{display:none}
+.hero-right{animation:fadeUp .6s .28s ease both}
+.hcard{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r-lg);padding:28px;position:relative;box-shadow:0 32px 64px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04)}
+.hcard::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(184,240,90,0.45),transparent)}
+.hc-lbl{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.hc-big{font-family:'JetBrains Mono',monospace;font-size:38px;font-weight:500;color:var(--danger);letter-spacing:-0.03em;line-height:1;margin-bottom:4px}
+.hc-cap{font-size:13px;color:var(--text2);margin-bottom:22px}
+.hc-div{height:1px;background:var(--border);margin-bottom:18px}
+.hc-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.hc-row-lbl{font-size:12px;color:var(--text3)}
+.hc-row-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500}
+.hc-row-val.d{color:var(--danger)}.hc-row-val.a{color:var(--accent)}
+.hc-btn{display:block;width:100%;background:var(--accent);color:#0a0c06;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;padding:13px;border-radius:var(--r-sm);text-align:center;border:none;cursor:pointer;margin-top:20px}
+.hbadge{position:absolute;top:-14px;right:24px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);padding:8px 14px;box-shadow:0 8px 20px rgba(0,0,0,0.4)}
+.hbadge-n{font-family:'JetBrains Mono',monospace;font-size:17px;font-weight:500;color:var(--accent)}
+.hbadge-l{font-size:10px;color:var(--text3);margin-top:1px}
+
+/* PROOF STRIP */
+.proof{position:relative;z-index:1;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);padding:20px 40px;display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap}
+.proof-item{text-align:center}
+.proof-n{font-family:'Manrope',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.03em;color:var(--text)}
+.proof-l{font-size:12px;color:var(--text3);line-height:1.4;margin-top:2px}
+.proof-sep{width:1px;height:36px;background:var(--border2)}
+
+/* LAYOUT */
+.wrap{max-width:1080px;margin:0 auto;padding:0 40px;position:relative;z-index:1}
+.slg{padding:100px 0}.smd{padding:72px 0}
+.eyebrow{display:block;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(24px,3.2vw,38px);letter-spacing:-0.035em;line-height:1.15;margin-bottom:14px}
+.h2lg{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(28px,3.8vw,44px);letter-spacing:-0.04em;line-height:1.1;margin-bottom:14px}
+.lead{font-size:17px;color:var(--text2);line-height:1.75;max-width:520px}
+.lsm{font-size:15px;color:var(--text2);line-height:1.72}
+
+/* PAIN */
+.pain-bg{background:var(--bg2);border-top:1px solid var(--border)}
+.pain-intro{max-width:540px;margin-bottom:56px}
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border-radius:var(--r-lg);overflow:hidden}
+.pain-cell{background:var(--bg3);padding:36px;transition:background .2s}
+.pain-cell:hover{background:var(--bg4)}
+.p-icon{width:36px;height:36px;border-radius:var(--r-sm);background:var(--bg5);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:18px}
+.pain-cell h3{font-family:'Manrope',sans-serif;font-weight:700;font-size:15px;letter-spacing:-0.02em;margin-bottom:8px}
+.pain-cell p{font-size:14px;color:var(--text2);line-height:1.7}
+
+/* COST */
+.cost-bg{background:var(--black)}
+.cost-layout{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-top:56px}
+.cost-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.cost-big{font-family:'JetBrains Mono',monospace;font-size:52px;font-weight:500;color:var(--danger);letter-spacing:-0.04em;line-height:1;margin-bottom:6px}
+.cost-big-cap{font-size:13px;color:var(--text3);margin-bottom:26px}
+.cost-prose{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:20px}
+.cost-prose strong{color:var(--text)}
+.cost-bars{display:flex;flex-direction:column;gap:20px}
+.cbar-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cbar-name{font-size:13px;color:var(--text2)}
+.cbar-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500}
+.cbar-val.d{color:var(--danger)}.cbar-val.a{color:var(--accent)}
+.cbar-track{height:6px;background:var(--bg4);border-radius:100px;overflow:hidden}
+.cbar-fill{height:100%;border-radius:100px;transition:width 1.4s cubic-bezier(.4,0,.2,1);width:0}
+.cbar-fill.r{background:var(--danger)}.cbar-fill.g{background:var(--accent)}
+.cost-save{background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:var(--r);padding:22px;margin-top:8px}
+.cost-save-lbl{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.cost-save-num{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:500;color:var(--accent);letter-spacing:-0.03em}
+.cost-save-cap{font-size:12px;color:var(--text3);margin-top:4px}
+
+/* SOLUTION */
+.sol-bg{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.sol-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;margin-top:56px}
+.sol-feats{display:flex;flex-direction:column;gap:28px}
+.sol-feat{display:flex;gap:14px;align-items:flex-start}
+.sol-icon{width:38px;height:38px;border-radius:var(--r-sm);background:var(--accent-dim);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:1px}
+.sol-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:15px;letter-spacing:-0.02em;margin-bottom:4px}
+.sol-text{font-size:13px;color:var(--text2);line-height:1.65}
+.sol-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-lg);padding:28px;box-shadow:0 20px 40px rgba(0,0,0,0.3)}
+.sol-card-head{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:20px}
+.sol-dfd{background:var(--bg4);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.sol-dfd-lbl{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.sol-dfd-date{font-family:'JetBrains Mono',monospace;font-size:24px;font-weight:500;color:var(--accent);letter-spacing:-0.02em}
+.sol-dfd-note{font-size:12px;color:var(--text3);margin-top:4px}
+.sol-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border)}
+.sol-row:last-child{border-bottom:none}
+.sol-row-lbl{font-size:13px;color:var(--text2)}
+.sol-row-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500}
+.sol-row-val.a{color:var(--accent)}.sol-row-val.d{color:var(--danger)}.sol-row-val.p{color:var(--text);font-family:'Inter',sans-serif}
+
+/* STEPS */
+.steps-bg{background:var(--black)}
+.steps-intro{max-width:480px;margin-bottom:60px}
+.steps-wrap{position:relative}
+.steps-line{position:absolute;left:21px;top:44px;bottom:36px;width:1px;background:linear-gradient(180deg,var(--border2),transparent)}
+.step{display:flex;gap:28px;padding-bottom:44px;position:relative}
+.step:last-child{padding-bottom:0}
+.step-dot{width:42px;height:42px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--text2);flex-shrink:0;position:relative;z-index:1;margin-top:4px}
+.step-body{padding-top:8px}
+.step-title{font-family:'Manrope',sans-serif;font-weight:700;font-size:18px;letter-spacing:-0.025em;margin-bottom:6px}
+.step-text{font-size:14px;color:var(--text2);line-height:1.7;max-width:420px;margin-bottom:14px}
+.step-chip{display:flex;flex-wrap:wrap;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);padding:10px 14px;font-size:12px;color:var(--text2);max-width:100%;word-break:break-word;line-height:1.6}
+.cd{font-family:'JetBrains Mono',monospace;color:var(--danger);font-weight:500}
+.ca{font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:500}
+
+/* TESTIMONIALS */
+.testi-bg{background:var(--bg2);border-top:1px solid var(--border)}
+.testi-intro{max-width:460px;margin-bottom:52px}
+.testi-row1{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.testi-row2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:66.66%;margin:0 auto}
+.tc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:24px;transition:border-color .2s,transform .2s}
+.tc:hover{border-color:var(--border2);transform:translateY(-2px)}
+.tc.ft{background:var(--bg4);border-color:var(--border2)}
+.tc-stars{display:flex;gap:2px;margin-bottom:14px}
+.tc-stars span{color:var(--accent);font-size:11px}
+.tc-q{font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:18px}
+.tc-q strong{color:var(--text);font-weight:600}
+.tc-person{display:flex;align-items:center;gap:10px}
+.tc-av{width:32px;height:32px;border-radius:50%;background:var(--bg5);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;color:var(--accent);flex-shrink:0}
+.tc-name{font-size:13px;font-weight:600;color:var(--text)}
+.tc-desc{font-size:11px;color:var(--text3);margin-top:1px}
+
+/* FINAL CTA */
+.fcta-bg{background:var(--black);border-top:1px solid var(--border)}
+.fcta-inner{max-width:580px;margin:0 auto;text-align:center}
+.fcta-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:100px;padding:5px 16px;font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.07em;text-transform:uppercase;margin-bottom:24px}
+.fcta-trust{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:20px;gap:4px}
+.fcta-trust span{font-size:12px;color:var(--text3);display:flex;align-items:center;gap:5px;padding:0 14px;border-right:1px solid var(--border2)}
+.fcta-trust span:last-child{border-right:none}
+.fdot{display:none}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.footer-logo{font-family:'Manrope',sans-serif;font-weight:700;font-size:15px;letter-spacing:-0.03em;color:var(--text2)}
+.footer-logo em{color:var(--accent);font-style:normal}
+.footer-r{font-size:12px;color:var(--text3)}
+.footer-r a{color:var(--text3);text-decoration:none;transition:color .15s}
+.footer-r a:hover{color:var(--text2)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:0 20px;height:52px}
+  .nav-right{gap:12px}
+  .nav-link{font-size:11px;color:var(--text3)}
+  .nav-cta{font-size:11px;padding:6px 13px}
+  .hero{grid-template-columns:1fr;padding:88px 20px 52px;gap:32px;text-align:center;min-height:auto}
+  h1{font-size:26px;letter-spacing:-0.03em;line-height:1.15}
+  .hero-eyebrow{font-size:10px;padding:4px 12px;margin-bottom:18px}
+  .hero-sub{font-size:14px;line-height:1.65;margin-bottom:28px;max-width:100%}
+  .btn-primary{align-self:center;font-size:13px;padding:13px 22px;width:auto;max-width:100%;box-sizing:border-box}
+  .hero-trust{justify-content:center;font-size:11px}
+  .hero-trust span{padding-right:10px;margin-right:10px}
+  .hero-right{display:none}
+  .proof{gap:0;padding:0;flex-wrap:wrap}
+  .proof-item{width:50%;padding:16px 12px;text-align:center;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .proof-item:nth-child(2){border-right:none}
+  .proof-item:nth-child(3){border-bottom:none}
+  .proof-item:nth-child(4){border-right:none;border-bottom:none}
+  .proof-n{font-size:18px}
+  .proof-l{font-size:11px}
+  .proof-sep{display:none}
+  .slg{padding:56px 0}
+  .smd{padding:40px 0}
+  .wrap{padding:0 18px}
+  .eyebrow{font-size:10px;margin-bottom:10px}
+  .h2{font-size:20px;margin-bottom:10px}
+  .h2lg{font-size:22px;margin-bottom:10px}
+  .lead{font-size:14px;line-height:1.65}
+  .lsm{font-size:13px;line-height:1.65}
+  .pain-intro{margin-bottom:28px}
+  .pain-grid{grid-template-columns:1fr}
+  .pain-cell{padding:22px 18px}
+  .pain-cell h3{font-size:14px}
+  .pain-cell p{font-size:13px}
+  .p-icon{width:32px;height:32px;font-size:14px;margin-bottom:12px}
+  .cost-layout{grid-template-columns:1fr;gap:28px}
+  .cost-big{font-size:36px}
+  .cost-big-cap{font-size:12px}
+  .cost-prose{font-size:13px;margin-bottom:14px}
+  .cost-lbl{font-size:10px}
+  .cost-save-num{font-size:22px}
+  .cost-save-cap{font-size:11px}
+  .cbar-name{font-size:12px}
+  .cbar-val{font-size:12px}
+  .sol-layout{grid-template-columns:1fr;gap:32px}
+  .sol-card{padding:20px}
+  .sol-feat{gap:12px}
+  .sol-icon{width:34px;height:34px;font-size:14px;flex-shrink:0}
+  .sol-title{font-size:14px}
+  .sol-text{font-size:12px}
+  .sol-dfd-date{font-size:20px}
+  .sol-row-lbl{font-size:12px}
+  .sol-row-val{font-size:12px}
+  .steps-intro{margin-bottom:36px}
+  .steps-line{display:none}
+  .step{gap:14px;padding-bottom:28px}
+  .step-dot{width:36px;height:36px;font-size:11px}
+  .step-title{font-size:15px}
+  .step-text{font-size:13px;max-width:100%}
+  .step-chip{font-size:11px;padding:8px 12px;width:100%;flex-wrap:wrap;gap:3px}
+  .testi-intro{margin-bottom:28px}
+  .testi-row1{grid-template-columns:1fr!important;gap:10px}
+  .testi-row2{grid-template-columns:1fr!important;max-width:100%!important;gap:10px}
+  .tc{padding:18px}
+  .tc-q{font-size:13px;line-height:1.65}
+  .tc-name{font-size:12px}
+  .tc-desc{font-size:10px}
+  .fcta-inner{max-width:100%}
+  .fcta-tag{font-size:10px;padding:4px 12px;margin-bottom:18px}
+  .fcta-trust{flex-direction:column;gap:6px;margin-top:16px}
+  .fcta-trust span{border-right:none;padding:0;font-size:11px}
+  footer{padding:18px 20px}
+  .footer-r{display:none}
+}
+
+@media(max-width:480px){
+  h1{font-size:23px}
+  .h2lg{font-size:20px}
+  .h2{font-size:18px}
+  .hero-sub{font-size:13px}
+  .btn-primary{font-size:13px;padding:13px 18px;width:100%;justify-content:center}
+  .cost-big{font-size:30px}
+  nav{height:50px}
+  .nav-logo{font-size:14px}
+  .nav-link{font-size:10px}
+  .nav-cta{font-size:11px;padding:6px 11px}
+}
+  .slg{padding:68px 0}.smd{padding:52px 0}
+  .testi-grid{grid-template-columns:1fr}
+  .h2{font-size:22px}.h2lg{font-size:26px}
+  .cost-big{font-size:38px}
+  .fcta-trust{flex-direction:column;gap:8px}
+  .fcta-trust span{border-right:none}
+  footer{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Clear<em>Path</em></div>
+  <div class="nav-right">
+    <a href="#how" class="nav-link">How it works</a>
+    <a href="#reviews" class="nav-link">Reviews</a>
+    <a href="https://getclearpathapp.com" class="nav-cta">Try it free &rarr;</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">&#10022; Free calculator &middot; No signup required</div>
+    <h1>Your bank is counting on you never calculating <span class="hl-danger">this number.</span></h1>
+    <p class="hero-sub">In under 2 minutes, ClearPath shows you exactly how much interest your bank will collect from you &mdash; and your fastest, clearest way out.</p>
+    <div class="hero-cta-wrap">
+      <a href="https://getclearpathapp.com" class="btn-primary">
+        See What My Debt Is REALLY Costing Me
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="hero-trust">
+        <span>&#10003;Free forever</span>
+        <span>&#10003;No account needed</span>
+        <span>&#10003;Under 2 minutes</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hcard">
+      <div class="hbadge"><div class="hbadge-n">+9 yrs</div><div class="hbadge-l">sooner debt-free</div></div>
+      <div class="hc-lbl">If nothing changes</div>
+      <div class="hc-big">$18,400</div>
+      <div class="hc-cap">in interest your bank will collect</div>
+      <div class="hc-div"></div>
+      <div class="hc-row"><span class="hc-row-lbl">Debt-free on minimums</span><span class="hc-row-val d">Nov 2038</span></div>
+      <div class="hc-row"><span class="hc-row-lbl">With ClearPath strategy</span><span class="hc-row-val a">Jun 2029</span></div>
+      <div class="hc-row"><span class="hc-row-lbl">Interest you keep</span><span class="hc-row-val a">$14,200</span></div>
+      <button class="hc-btn" onclick="window.location.href='https://getclearpathapp.com'">See my numbers &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF STRIP -->
+<div class="proof">
+  <div class="proof-item"><div class="proof-n">2 min</div><div class="proof-l">average time to calculate<br/>your number</div></div>
+  <div class="proof-sep"></div>
+  <div class="proof-item"><div class="proof-n">$14k+</div><div class="proof-l">average interest found<br/>in user calculations</div></div>
+  <div class="proof-sep"></div>
+  <div class="proof-item"><div class="proof-n">4.3 yrs</div><div class="proof-l">average time saved with<br/>a smarter strategy</div></div>
+  <div class="proof-sep"></div>
+  <div class="proof-item"><div class="proof-n">Free</div><div class="proof-l">calculator &mdash; always<br/>no account required</div></div>
+</div>
+
+<!-- PAIN -->
+<section class="pain-bg slg">
+  <div class="wrap">
+    <div class="pain-intro rv">
+      <span class="eyebrow">Why this matters</span>
+      <h2 class="h2lg">You&rsquo;re not bad with money.<br/>You just never got a clear picture.</h2>
+      <p class="lsm" style="margin-top:12px">Debt doesn&rsquo;t feel like a crisis. It feels like background noise &mdash; always there, rarely getting better. That&rsquo;s not an accident.</p>
+    </div>
+    <div class="pain-grid rv d1">
+      <div class="pain-cell"><div class="p-icon">&#128064;</div><h3>You avoid looking at the balance</h3><p>Not because you don&rsquo;t care. Because every time you do, nothing seems to change. The number just sits there, month after month, barely moving.</p></div>
+      <div class="pain-cell"><div class="p-icon">&#128260;</div><h3>You pay the minimum and move on</h3><p>It feels responsible. It feels like progress. But minimum payments were designed to maximize interest collection &mdash; not to help you get free faster.</p></div>
+      <div class="pain-cell"><div class="p-icon">&#9203;</div><h3>It feels like it&rsquo;ll never end</h3><p>The math is invisible. Nobody showed you how interest compounds, how long it really takes, or how much you&rsquo;re actually paying. So it just feels endless.</p></div>
+      <div class="pain-cell"><div class="p-icon">&#128161;</div><h3>You know something needs to change</h3><p>But &ldquo;do something different&rdquo; isn&rsquo;t a plan. Without seeing your exact number &mdash; your real interest cost, your actual timeline &mdash; there&rsquo;s nothing concrete to act on.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REAL COST -->
+<section class="cost-bg slg">
+  <div class="wrap">
+    <span class="eyebrow rv">What&rsquo;s actually happening</span>
+    <h2 class="h2lg rv d1">Most people never realize<br/>how expensive debt <span style="color:var(--danger)">becomes over time.</span></h2>
+    <p class="lead rv d2" style="margin-top:12px">What starts as manageable monthly payments can quietly turn into years of interest and delayed freedom.</p>
+    <div class="cost-layout">
+      <div class="rv">
+        <div class="cost-lbl">On $12,000 at 21% APR &mdash; minimums only</div>
+        <div class="cost-big">$11,847</div>
+        <div class="cost-big-cap">in interest paid to your bank &mdash; over 12+ years</div>
+        <p class="cost-prose">You borrowed $12,000. You pay back nearly $24,000. And it takes over a decade. <strong>Your bank knows this. It&rsquo;s by design.</strong></p>
+        <p class="cost-prose">The good news: a smarter payoff strategy &mdash; applied to the same debt, with no extra income &mdash; gets you out in about 3 years and saves over $9,000.</p>
+      </div>
+      <div class="cost-bars rv d2">
+        <div class="cbar-block"><div class="cbar-meta"><span class="cbar-name">Minimum payments only</span><span class="cbar-val d">12.4 years</span></div><div class="cbar-track"><div class="cbar-fill r" data-width="100%"></div></div></div>
+        <div class="cbar-block"><div class="cbar-meta"><span class="cbar-name">With a smarter strategy</span><span class="cbar-val a">3.1 years</span></div><div class="cbar-track"><div class="cbar-fill g" data-width="25%"></div></div></div>
+        <div class="cost-save"><div class="cost-save-lbl">What you keep instead</div><div class="cost-save-num">$9,200+</div><div class="cost-save-cap">in interest saved with the right plan</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="sol-bg slg">
+  <div class="wrap">
+    <span class="eyebrow rv">What ClearPath gives you</span>
+    <h2 class="h2lg rv d1">Not a budgeting app.<br/>A <span style="color:var(--accent)">debt-free roadmap.</span></h2>
+    <p class="lead rv d2" style="margin-top:12px">ClearPath shows you exactly where you stand, exactly what it costs you, and exactly how to get out &mdash; faster than you think.</p>
+    <div class="sol-layout">
+      <div class="sol-feats">
+        <div class="sol-feat rv"><div class="sol-icon">&#128197;</div><div><div class="sol-title">Your exact debt-free date</div><p class="sol-text">Not a rough estimate. Your actual month and year &mdash; calculated from your real balances, rates, and payments.</p></div></div>
+        <div class="sol-feat rv d1"><div class="sol-icon">&#128184;</div><div><div class="sol-title">The real cost of doing nothing</div><p class="sol-text">See the exact dollar amount your bank will collect from you on minimum payments. Most people are genuinely surprised.</p></div></div>
+        <div class="sol-feat rv d2"><div class="sol-icon">&#9889;</div><div><div class="sol-title">Your fastest payoff strategy</div><p class="sol-text">Avalanche or Snowball &mdash; we explain both clearly, show you the numbers side by side, and help you pick what fits your life.</p></div></div>
+        <div class="sol-feat rv d3"><div class="sol-icon">&#128222;</div><div><div class="sol-title">Scripts to lower your rates today</div><p class="sol-text">A single 5-minute call can cut your interest rate by 2&ndash;4%. We wrote every word for you so there&rsquo;s no guessing.</p></div></div>
+      </div>
+      <div class="sol-card rv d2">
+        <div class="sol-card-head">Your personalized snapshot</div>
+        <div class="sol-dfd"><div class="sol-dfd-lbl">Debt-free date</div><div class="sol-dfd-date">September 2028</div><div class="sol-dfd-note">4 years and 3 months sooner than minimums</div></div>
+        <div class="sol-row"><span class="sol-row-lbl">Total debt</span><span class="sol-row-val p">$18,500</span></div>
+        <div class="sol-row"><span class="sol-row-lbl">Bank&rsquo;s interest total</span><span class="sol-row-val d">$14,200</span></div>
+        <div class="sol-row"><span class="sol-row-lbl">With ClearPath</span><span class="sol-row-val a">$4,800</span></div>
+        <div class="sol-row"><span class="sol-row-lbl">Interest you save</span><span class="sol-row-val a">$9,400</span></div>
+        <div class="sol-row"><span class="sol-row-lbl">Strategy</span><span class="sol-row-val p">Avalanche</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="steps-bg slg" id="how">
+  <div class="wrap">
+    <div class="steps-intro rv">
+      <span class="eyebrow">How it works</span>
+      <h2 class="h2">Your number in 3 steps.<br/>Under 2 minutes.</h2>
+      <p class="lsm" style="margin-top:10px">No signup. No credit check. No personal information required.</p>
+    </div>
+    <div class="steps-wrap">
+      <div class="steps-line"></div>
+      <div class="step rv"><div class="step-dot">01</div><div class="step-body"><div class="step-title">Add your debts</div><p class="step-text">Enter your balances, interest rates, and minimum payments. Takes about 60 seconds. We don&rsquo;t store or share any of it.</p><div class="step-chip">Balance: <span class="cd">$8,400</span> &nbsp;&middot;&nbsp; Rate: <span class="cd">22.9%</span> &nbsp;&middot;&nbsp; Min: $210</div></div></div>
+      <div class="step rv d1"><div class="step-dot">02</div><div class="step-body"><div class="step-title">See your real number</div><p class="step-text">The moment you calculate, you see exactly how much interest your bank plans to collect from you. For most people, this number is a genuine wake-up call.</p><div class="step-chip">Your bank collects: <span class="cd">$11,248</span> in interest if nothing changes</div></div></div>
+      <div class="step rv d2"><div class="step-dot">03</div><div class="step-body"><div class="step-title">Get your fastest way out</div><p class="step-text">See how much sooner you could be debt-free with a smarter strategy. The contrast is usually surprising &mdash; and immediately motivating.</p><div class="step-chip">With ClearPath: debt-free <span class="ca">March 2029</span> &middot; saving <span class="ca">$8,900</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-bg slg" id="reviews">
+  <div class="wrap">
+    <div class="testi-intro rv">
+      <span class="eyebrow">Real people. Real numbers.</span>
+      <h2 class="h2">What happens when you finally<br/>see your number.</h2>
+    </div>
+    <div class="rv">
+      <!-- Row 1: 3 cards -->
+      <div class="testi-row1">
+        <div class="tc ft"><div class="tc-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div><p class="tc-q">"I honestly didn&rsquo;t want to use this. I&rsquo;d been avoiding my debt for 8 months because it made me anxious. But I tried it and&hellip; <strong>I had no idea my bank was going to charge me $22,000 in interest.</strong> That number made me actually want to deal with it."</p><div class="tc-person"><div class="tc-av">S</div><div><div class="tc-name">Sarah M.</div><div class="tc-desc">31 &middot; Dental Assistant &middot; $14k credit card debt</div></div></div></div>
+        <div class="tc"><div class="tc-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div><p class="tc-q">"I kept telling myself I&rsquo;d deal with it when I made more money. ClearPath showed me I didn&rsquo;t need more money &mdash; <strong>I needed a different strategy.</strong> The difference between minimums and the avalanche method was almost 6 years."</p><div class="tc-person"><div class="tc-av">J</div><div><div class="tc-name">James R.</div><div class="tc-desc">28 &middot; Teacher &middot; $19k across 3 cards</div></div></div></div>
+        <div class="tc"><div class="tc-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div><p class="tc-q">"I was skeptical &mdash; I&rsquo;ve tried budgeting apps before. But this is different. <strong>It&rsquo;s not about budgeting, it&rsquo;s about seeing the truth.</strong> Seeing $18k in interest written out made it real in a way nothing else had."</p><div class="tc-person"><div class="tc-av">A</div><div><div class="tc-name">Alexis T.</div><div class="tc-desc">35 &middot; Nurse &middot; $27k student + credit debt</div></div></div></div>
+      </div>
+      <!-- Row 2: 2 cards centered -->
+      <div class="testi-row2">
+        <div class="tc"><div class="tc-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div><p class="tc-q">"The negotiation scripts were the part I didn&rsquo;t expect. I called my credit card company and <strong>got my rate dropped from 24% to 18%</strong> in one phone call. That alone saves me thousands."</p><div class="tc-person"><div class="tc-av">M</div><div><div class="tc-name">Marcus L.</div><div class="tc-desc">42 &middot; Operations Manager &middot; $31k in debt</div></div></div></div>
+        <div class="tc ft"><div class="tc-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div><p class="tc-q">"What got me was seeing &lsquo;bank plan: 2037&rsquo; next to &lsquo;ClearPath: 2030&rsquo; in big numbers. <strong>Seven years of my life.</strong> Seven years of stress and interest. I bought the full plan immediately."</p><div class="tc-person"><div class="tc-av">P</div><div><div class="tc-name">Priya K.</div><div class="tc-desc">29 &middot; UX Designer &middot; $22k across 4 accounts</div></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="fcta-bg slg">
+  <div class="wrap">
+    <div class="fcta-inner">
+      <div class="fcta-tag rv">&#10022; You&rsquo;re not stuck. You just need clarity.</div>
+      <h2 class="h2lg rv d1">Find out your number.<br/>It takes <span style="color:var(--accent)">2 minutes.</span></h2>
+      <p class="lsm rv d2" style="margin:14px auto 32px;max-width:420px">Most people who calculate their debt-free date say the same thing: &ldquo;I wish I&rsquo;d done this sooner.&rdquo; The number might be uncomfortable. But knowing it is how you change it.</p>
+      <div class="rv d3"><a href="https://getclearpathapp.com" class="btn-primary" style="margin:0 auto">Calculate My Debt-Free Date <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></div>
+      <div class="fcta-trust rv d4">
+        <span>&#10003; Free &middot; no credit card</span>
+        <span>&#10003; No account needed</span>
+        <span>&#10003; Data stays on device</span>
+        <span>&#10003; Under 2 minutes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Clear<em>Path</em></div>
+  <div class="footer-r">Your fastest path to debt-free. &nbsp;&middot;&nbsp; <a href="https://getclearpathapp.com">Launch the free calculator &rarr;</a></div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.08,rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const bIO=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){const f=x.target.querySelector('.cbar-fill');if(f)setTimeout(()=>{f.style.width=f.dataset.width},150)}})},{threshold:.4});
+document.querySelectorAll('.cbar-block').forEach(el=>bIO.observe(el));
+window.addEventListener('scroll',()=>{document.querySelector('nav').style.background=window.scrollY>40?'rgba(7,7,9,0.97)':'rgba(7,7,9,0.85)';},{passive:true});
+
+
+</script>
+</body>
+</html>
